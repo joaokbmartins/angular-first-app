@@ -30,6 +30,7 @@ speed-measure-plugin*.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+/.vscode
 
 # misc
 /.sass-cache
@@ -40,13 +41,9 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+package-lock.json
+.editorconfig
 
 # System Files
 .DS_Store
 Thumbs.db
- 
-/.vscode
-.editorconfig
-package-lock.json
-
- 
