@@ -1,0 +1,51 @@
+<h2>Servers Component</h2>
+
+<input 
+    type="text" 
+    [(ngModel)]="username"
+    placeholder="Usernmae here..."
+    class="form-control"/>
+
+<h5>Username:  {{ username }} </h5>
+
+<button 
+    class="btn alert-warning"
+    (click)="onUnsetUsername()"
+    [disabled]="!username">
+    Unset Username
+</button>
+
+<hr/>
+
+<!-- <input 
+    type="text" 
+    class="form-control"
+    (input)="onInputTextChange($event)"/> -->
+
+<input
+    type="text" 
+    class="form-control"
+    [(ngModel)]="serverName" />
+
+<p>Server name: {{ serverName }} </p>
+
+<button 
+    class="btn btn-primary"
+    [disabled]="!allowNewServer"
+    (click)="onCreateServer()"
+>
+    Add New Server
+</button>
+
+<p *ngIf="serverCreated; else noServer">
+    Server created with name {{ serverName }}
+</p>
+
+<ng-template #noServer>
+    <p>No server was created!</p>
+</ng-template>
+
+<!-- <p> {{ serverCreationStatus }} </p> -->
+<!-- <p [innerHTML]="allowNewServer"></p> -->
+
+<app-server *ngFor="let server of serverList"></app-server>

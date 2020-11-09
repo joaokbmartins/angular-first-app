@@ -1,0 +1,29 @@
+<button 
+  (click)="onDisplayDetails();"
+  class="btn btn-primary">
+  Display Details
+</button>
+
+<p *ngIf="displayDetails">
+    You get a shiver in the dark
+    It's raining in the park but meantime
+    South of the river you stop and you hold everything
+    A band is blowing Dixie double four time
+    You feel alright when you hear that music ring
+</p>
+
+<legend>Access log</legend>
+<ul>
+  <li 
+    *ngFor="let access of accessLog; let i = index"
+  >
+<!-- [ngStyle]="{backgroundColor: accessLog.indexOf(access) >= 4 ? 'blue' : 'white'}"  -->
+<!-- [ngClass]="{'whiteLog': accessLog.indexOf(access) >= 4}" -->
+  <span 
+      [ngStyle]="{backgroundColor: i >= 4 ? 'blue' : 'white'}" 
+      [ngClass]="{'whiteLog': i >= 4}"
+    >
+      {{ access }} 
+    </span>
+  </li>
+</ul>
