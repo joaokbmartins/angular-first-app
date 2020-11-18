@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component ({
-    selector: 'app-shopping-list',
-    templateUrl: './shopping-list.component.url'
+    selector: 'app-shopping-edit',
+    templateUrl: './shopping-edit.component.html'
 })
 
-export class ShoppingListComponent {
+export class ShoppingEditComponent {
     
 }

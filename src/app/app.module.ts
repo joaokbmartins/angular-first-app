@@ -7,15 +7,15 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { SuccessAlertComponent } from './success-alert/success-alert.component';
 import { WarningAlertComponent } from './warning-alert/warning-alert.component';
-import { PracticingDirectivesComponent } from './practicing-directives/practicing-directives.component';
-import { RecipeBookComponent } from './components/recipe-book/recipe-book.component';
-import { RecipeComponent } from './components/recipe-book/recipe/recipe.component';
-import { RecipeDetailComponent } from './components/recipe-book/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './components/recipe-book/recipe-item/recipe-item.component';
-import { RecipeListComponent } from './components/recipe-book/recipe-list/recipe-list.component';
+import { PracticingDirectivesComponent } from './practicing-directives/practicing-directives.component'; 
 import { IngredientComponent } from './components/shopping-list/ingredient/ingredient.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { HeaderComponent } from './components/header/header.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
+import { RecipeListComponent } from './components/recipe/recipe-list/recipe-list.component';
+import { RecipeDetailComponent } from './components/recipe/recipe-detail/recipe-detail.component';
+import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item/recipe-item.component';
+import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +25,13 @@ import { HeaderComponent } from './components/header/header.component';
     SuccessAlertComponent,
     WarningAlertComponent,
     PracticingDirectivesComponent,
-    HeaderComponent,
+    HeaderComponent, 
     RecipeComponent,
-    RecipeBookComponent,
+    RecipeListComponent,
     RecipeDetailComponent,
     RecipeItemComponent,
-    RecipeListComponent,
     ShoppingListComponent,
+    ShoppingEditComponent,
     IngredientComponent
   ],
   imports: [
