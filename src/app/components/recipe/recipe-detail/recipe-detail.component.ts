@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 
 export class RecipeDetailComponent {
 
+  private collapsed:boolean = true;
+
+  public getCollapsed():boolean {
+    return this.collapsed;
+  }
+
+  public setCollpsed(collapsed:boolean):void {
+    this.collapsed = collapsed;
+  }
+
 }

@@ -1,2 +1,15 @@
-<h3>Shopping List</h3>
-<app-shopping-edit></app-shopping-edit>
+<div class="row">
+  <div class="col-xs-10">
+    <app-shopping-edit></app-shopping-edit>
+    <hr />
+    <ul class="list-group">
+      <a
+        *ngFor="let ingredient of getIngredients()"
+        class="list-group-item"
+        style="cursor: pointer"
+      >
+        {{ ingredient.getName() }} ({{ ingredient.getAmount() }})
+      </a>
+    </ul>
+  </div>
+</div>
