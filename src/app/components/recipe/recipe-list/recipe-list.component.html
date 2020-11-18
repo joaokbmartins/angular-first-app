@@ -1,16 +1,29 @@
 <h3>Recipe List</h3>
 
-<ul>
-  <li>
-    <app-recipe-item></app-recipe-item>
-  </li>
-  <li>
-    <app-recipe-item></app-recipe-item>
-  </li>
-  <li>
-    <app-recipe-item></app-recipe-item>
-  </li>
-  <li>
-    <app-recipe-item></app-recipe-item>
-  </li>
-</ul>
+<div class="row">
+  <div class="col-xs-12">
+    <button class="button button-success">New Recipe</button>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-xs-12">
+      <a href="#" class="list-group-item clearfix" 
+      *ngFor="let recipe of getRecipes()">
+        <div class="pull-left">
+          <h4 class="list-group-item-heading">{{recipe.getName()}}</h4>
+          <p class="list-group-item-text">{{recipe.getDescription()}}</p>
+          <span class="pull-right">
+            <!--src="{{recipe.getImagePath()}}"-->
+            <img 
+              [src]="recipe.getImagePath()"
+              class="img-responsive" 
+              style="max-height: 50px;" 
+              [alt]="recipe.getName()"/>
+          </span>
+        </div>
+        </a>
+      <hr>
+      <app-recipe-item></app-recipe-item>
+    </div>
+  </div>
+</div>
