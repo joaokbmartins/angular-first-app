@@ -3,11 +3,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import { FormsModule } from '@angular/forms';
-import { ServerComponent } from './server/server.component';
-import { ServersComponent } from './servers/servers.component';
-import { SuccessAlertComponent } from './success-alert/success-alert.component';
-import { WarningAlertComponent } from './warning-alert/warning-alert.component';
-import { PracticingDirectivesComponent } from './practicing-directives/practicing-directives.component'; 
 import { IngredientComponent } from './components/shopping-list/ingredient/ingredient.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -20,11 +15,6 @@ import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/
 @NgModule({
   declarations: [
     AppComponent,
-    ServerComponent,
-    ServersComponent,
-    SuccessAlertComponent,
-    WarningAlertComponent,
-    PracticingDirectivesComponent,
     HeaderComponent, 
     RecipeComponent,
     RecipeListComponent,
