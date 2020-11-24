@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -7,7 +9,10 @@ import { Component } from '@angular/core';
 
 export class RecipeDetailComponent {
 
-  private collapsed:boolean = true;
+  private collapsed: boolean = true;
+  
+  @Input()
+  private recipeItem: Recipe = null;
 
   public getCollapsed():boolean {
     return this.collapsed;
@@ -15,6 +20,14 @@ export class RecipeDetailComponent {
 
   public setCollpsed(collapsed:boolean):void {
     this.collapsed = collapsed;
+  }
+
+  public getRecipeItem(): Recipe {
+    return this.recipeItem;
+  }
+
+  public setRecipeItem(recipeItem: Recipe): void {
+    this.recipeItem = recipeItem;
   }
 
 }

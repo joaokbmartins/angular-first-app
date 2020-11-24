@@ -7,12 +7,14 @@
     <!-- <app-success-alert></app-success-alert> -->
     <!-- <app-warning-alert></app-warning-alert> -->
 
-    <app-header></app-header>
+    <app-header (changePage)="onChangePage($event)"></app-header>
     
     <h1>APP Component</h1>
 
-    <app-recipe></app-recipe>
-    <app-shopping-list></app-shopping-list>
+    <app-recipe *ngIf="getActualPage()=='recipes'; else renderShoppingList"></app-recipe>
+    <ng-template #renderShoppingList>
+      <app-shopping-list></app-shopping-list>
+    </ng-template>
 
   </div>
 

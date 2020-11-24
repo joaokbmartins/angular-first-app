@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +6,21 @@ import { Component } from '@angular/core';
 })
 
 export class HeaderComponent { 
-  collapsed = true;
+  private collapsed:boolean = true;
+
+  @Output()
+  private changePage:EventEmitter<string> = new EventEmitter<string>();
+
+  public onChangePage(page: string): void{
+    this.changePage.emit(page);
+  }
+
+  public getCollapsed(): boolean {
+    return this.collapsed;
+  }
+
+  public setCollapsed(collapsed: boolean): void{
+    this.collapsed = collapsed;
+  }
+
 }

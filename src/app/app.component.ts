@@ -12,4 +12,16 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent { 
+
+  private actualPage: string = 'recipes';
+
+  public onChangePage(page: string): void{
+    this.actualPage = page;
+    console.log(page);
+  }
+
+  public getActualPage(): string {
+    return this.actualPage;
+  }
+
 }
