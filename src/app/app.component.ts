@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 
 export class AppComponent { 
 
-  private actualPage: string = 'recipes';
+  private actualPage: string = 'shopping-list';
 
   public onChangePage(page: string): void{
     this.actualPage = page;

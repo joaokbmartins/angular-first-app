@@ -8,6 +8,9 @@ import { Ingredient } from '../../shared/ingredient.model';
 
 export class ShoppingEditComponent {
 
+  @Input()
+  private alertMessage: string = null;
+
   @ViewChild('inputName', { static: true })
   private inputName: ElementRef = null;
   
@@ -17,10 +20,34 @@ export class ShoppingEditComponent {
   @Output()
   private addIngredient: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
 
-  public onAddIngredient() {
+  @Output()
+  private deleteIngredient: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
+
+  @Output()
+  private clearList: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
+  
+  public onClearList(): void {
+    this.clearList.emit();
+  }
+
+  public onAddIngredient(): void {
     const ingredientName: string = this.inputName.nativeElement.value
     const ingredientAmount:number = this.inputAmount.nativeElement.value;
     this.addIngredient.emit(new Ingredient(ingredientName, ingredientAmount));
+  }
+
+  public onDeleteIngredient(): void {
+    const ingredientName: string = this.inputName.nativeElement.value
+    const ingredientAmount:number = this.inputAmount.nativeElement.value;
+    this.deleteIngredient.emit(new Ingredient(ingredientName, ingredientAmount));
+  }
+
+  public getAlertMessage(): string {
+    return this.alertMessage;
+  }
+
+  public setAlertMessage(alertMessage: string): void {
+    this.alertMessage = alertMessage;
   }
     
 }

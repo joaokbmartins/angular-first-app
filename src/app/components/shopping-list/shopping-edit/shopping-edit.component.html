@@ -11,6 +11,13 @@
           <input type="number" id="amount" class="form-control" #inputAmount />
         </div>
       </div>
+      <div class="row" *ngIf="getAlertMessage()">
+        <div class="col-xs-12">
+          <div class="alert alert-warning">
+            {{ getAlertMessage() }}
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xs-12">
           <button
@@ -20,8 +27,10 @@
           >
             Add
           </button>
-          <button class="btn btn-danger" type="button">Delete</button>
-          <button class="btn btn-primary" type="button">Clear</button>
+          &nbsp;
+          <button class="btn btn-danger" type="button" (click)="onDeleteIngredient()">Delete</button>
+          &nbsp;
+          <button class="btn btn-primary" type="button" (click)="onClearList()">Clear</button>
         </div>
       </div>
     </form>

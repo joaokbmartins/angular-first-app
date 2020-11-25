@@ -2,6 +2,9 @@
   <div class="col-xs-10">
     <app-shopping-edit
       (addIngredient)="addNewIngredient($event)"
+      (deleteIngredient)="deleteIngredient($event)"
+      (clearList)="onCleanList()"
+      [alertMessage]="getAlertMessage()"
     ></app-shopping-edit>
     <hr />
     <ul class="list-group">
