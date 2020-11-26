@@ -14,6 +14,10 @@ export class RecipeDetailComponent {
   @Input()
   private recipeItem: Recipe = null;
 
+  teste(event:Event) {
+    console.log(event);
+  }
+
   public getCollapsed():boolean {
     return this.collapsed;
   }

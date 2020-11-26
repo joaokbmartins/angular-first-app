@@ -11,6 +11,7 @@ import { RecipeListComponent } from './components/recipe/recipe-list/recipe-list
 import { RecipeDetailComponent } from './components/recipe/recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item/recipe-item.component';
 import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
+import { ToggleDropDirective } from './shared/directives/toggle-drop.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/
     RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    IngredientComponent
+    IngredientComponent,
+    ToggleDropDirective
   ],
   imports: [
     BrowserModule,
