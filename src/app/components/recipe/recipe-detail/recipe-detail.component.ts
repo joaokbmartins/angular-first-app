@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
+import { RecipesService } from 'src/app/shared/services/recipes.service';
 
 import { Recipe } from '../recipe.model';
 
@@ -7,31 +8,17 @@ import { Recipe } from '../recipe.model';
   templateUrl: './recipe-detail.component.html'
 })
 
-export class RecipeDetailComponent {
+export class RecipeDetailComponent implements DoCheck {
 
-  private collapsed: boolean = true;
-  
-  @Input()
-  private recipeItem: Recipe = null;
+  collapsed: boolean = true;
+  recipeToDetail: Recipe = null;
 
-  teste(event:Event) {
-    console.log(event);
-  }
+  constructor(
+    private recipesService:RecipesService
+  ){}
 
-  public getCollapsed():boolean {
-    return this.collapsed;
-  }
-
-  public setCollpsed(collapsed:boolean):void {
-    this.collapsed = collapsed;
-  }
-
-  public getRecipeItem(): Recipe {
-    return this.recipeItem;
-  }
-
-  public setRecipeItem(recipeItem: Recipe): void {
-    this.recipeItem = recipeItem;
+  ngDoCheck() { 
+    this.recipeToDetail = this.recipesService.actualRecipe;
   }
 
 }

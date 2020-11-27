@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
+import { RecipesService } from 'src/app/shared/services/recipes.service';
 import { Recipe } from './recipe.model';
 
 @Component ({
@@ -6,20 +7,16 @@ import { Recipe } from './recipe.model';
     templateUrl: './recipe.component.html'
 })
 
-export class RecipeComponent {
+export class RecipeComponent implements DoCheck{
 
-  private selectedRecipe: Recipe = null;
+  selectedRecipe: Recipe = null;
 
-  public showDetails(recipe: Recipe): void {
-    this.selectedRecipe = recipe;
-  }
-
-  public getSelectedRecipe(): Recipe {
-    return this.selectedRecipe;
-  }
-
-  public setSelectedRecipe(selectedRecipe: Recipe): void{
-    this.selectedRecipe = selectedRecipe;
-  }
+  constructor(
+    private recipesService:RecipesService
+  ) { }
+  
+  ngDoCheck() {
+    this.selectedRecipe = this.recipesService.actualRecipe;
+  } 
     
 }

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { RecipesService } from 'src/app/shared/services/recipes.service';
 
 import { Recipe } from '../../recipe.model';
 
@@ -9,20 +10,14 @@ import { Recipe } from '../../recipe.model';
 export class RecipeItemComponent {
 
   @Input()
-  private recipe: Recipe = null;
+  recipe: Recipe = null;
 
-  @Output()
-  showRecipeDetails: EventEmitter<void> = new EventEmitter<void>();
-  
-  constructor() {}
+  constructor(
+    private recipesService:RecipesService
+  ) {}
 
   public showDetails(): void{ 
-    this.showRecipeDetails.emit();
+    this.recipesService.onShowDetails(this.recipe);
   }
 
-  public getRecipe(): Recipe {
-    return this.recipe;
-  }
- 
- 
 }

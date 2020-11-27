@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-xs-12">
     <img
-      src="{{ getRecipeItem().getImagePath() }}"
-      alt="{{ getRecipeItem().getName() }}"
+      src="{{ recipeToDetail.getImagePath() }}"
+      alt="{{ recipeToDetail.getName() }}"
       style="max-height: 300px"
       class="img-responsive"
     />
@@ -10,7 +10,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <h1>{{ getRecipeItem().getName() }}</h1>
+    <h1>{{ recipeToDetail.getName() }}</h1>
   </div>
 </div>
 <div class="row">
@@ -29,7 +29,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    {{ getRecipeItem().getDescription() }}
+    {{ recipeToDetail.getDescription() }}
   </div>
 </div>
 <div class="row">

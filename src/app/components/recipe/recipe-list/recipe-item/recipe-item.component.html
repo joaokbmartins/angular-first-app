@@ -2,16 +2,18 @@
   href="#"
   class="list-group-item clearfix"
   (click)="showDetails()">
+  
   <div class="pull-left">
-    <h4 class="list-group-item-heading">{{getRecipe().getName()}}</h4>
-    <p class="list-group-item-text">{{getRecipe().getDescription()}}</p>
+    <h4 class="list-group-item-heading">{{recipe.getName()}}</h4>
+    <p class="list-group-item-text">{{recipe.getDescription()}}</p>
+  
     <span class="pull-right">
-      <!--src="{{getRecipe().getImagePath()}}"-->
       <img
-        [src]="getRecipe().getImagePath()"
+        [src]="recipe.getImagePath()"
         class="img-responsive"
         style="max-height: 50px;"
-        [alt]="getRecipe().getName()"/>
+        [alt]="recipe.getName()"/>
     </span>
   </div>
+  
 </a>
