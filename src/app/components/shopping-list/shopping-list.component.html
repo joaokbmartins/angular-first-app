@@ -1,15 +1,10 @@
 <div class="row">
   <div class="col-xs-10">
-    <app-shopping-edit
-      (addIngredient)="addNewIngredient($event)"
-      (deleteIngredient)="deleteIngredient($event)"
-      (clearList)="onCleanList()"
-      [alertMessage]="getAlertMessage()"
-    ></app-shopping-edit>
+    <app-shopping-edit></app-shopping-edit>
     <hr />
     <ul class="list-group">
       <a
-        *ngFor="let ingredient of getIngredients()"
+        *ngFor="let ingredient of ingredients"
         class="list-group-item"
         style="cursor: pointer"
       >

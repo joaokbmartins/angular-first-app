@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { RecipesService } from 'src/app/shared/services/recipes.service';
+import { Component, Input } from '@angular/core'; 
 
 import { Recipe } from '../../recipe.model';
+import { RecipesService } from '../../recipes.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -16,8 +16,8 @@ export class RecipeItemComponent {
     private recipesService:RecipesService
   ) {}
 
-  public showDetails(): void{ 
-    this.recipesService.onShowDetails(this.recipe);
+  public showDetails(): void{
+    this.recipesService.selectedRecipe.emit(this.recipe);
   }
 
 }

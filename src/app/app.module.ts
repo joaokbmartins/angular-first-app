@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-
 import { FormsModule } from '@angular/forms';
+
 import { IngredientComponent } from './components/shopping-list/ingredient/ingredient.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -12,6 +12,7 @@ import { RecipeDetailComponent } from './components/recipe/recipe-detail/recipe-
 import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item/recipe-item.component';
 import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
 import { ToggleDropDirective } from './shared/directives/toggle-drop.directive';
+import { ShoppingListService } from './components/shopping-list/shopping-list.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ToggleDropDirective } from './shared/directives/toggle-drop.directive';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ShoppingListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,14 +6,14 @@
   <div class="pull-left">
     <h4 class="list-group-item-heading">{{recipe.getName()}}</h4>
     <p class="list-group-item-text">{{recipe.getDescription()}}</p>
-  
-    <span class="pull-right">
-      <img
-        [src]="recipe.getImagePath()"
-        class="img-responsive"
-        style="max-height: 50px;"
-        [alt]="recipe.getName()"/>
-    </span>
   </div>
+  
+  <span class="pull-right">
+    <img
+      [src]="recipe.getImagePath()"
+      class="img-responsive"
+      style="max-width: 70px;"
+      [alt]="recipe.getName()"/>
+  </span>
   
 </a>

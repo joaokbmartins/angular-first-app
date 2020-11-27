@@ -1,13 +1,16 @@
-import { Component, DoCheck } from '@angular/core';
-import { RecipesService } from 'src/app/shared/services/recipes.service';
+import { Component, DoCheck, OnInit } from '@angular/core'; 
 import { Recipe } from './recipe.model';
+import { RecipesService } from './recipes.service';
 
 @Component ({
-    selector: 'app-recipe',
-    templateUrl: './recipe.component.html'
+  selector: 'app-recipe',
+  templateUrl: './recipe.component.html',
+  providers: [
+    RecipesService
+  ]
 })
 
-export class RecipeComponent implements DoCheck{
+export class RecipeComponent implements OnInit {
 
   selectedRecipe: Recipe = null;
 
@@ -15,8 +18,10 @@ export class RecipeComponent implements DoCheck{
     private recipesService:RecipesService
   ) { }
   
-  ngDoCheck() {
-    this.selectedRecipe = this.recipesService.actualRecipe;
+  ngOnInit() {
+    this.recipesService.selectedRecipe.subscribe (
+      (selectedRecipe: Recipe) => this.selectedRecipe = selectedRecipe
+    );
   } 
     
 }

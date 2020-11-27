@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { RecipesService } from 'src/app/shared/services/recipes.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core'; 
 import { Recipe } from '../recipe.model';
+import { RecipesService } from '../recipes.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -16,7 +16,7 @@ export class RecipeListComponent implements OnInit {
   ) {}
   
   ngOnInit() {
-    this.recipes = this.recipesService.recipes;
+    this.recipes = this.recipesService.getRecipes();
   }
 
 }
