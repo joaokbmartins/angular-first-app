@@ -16,7 +16,7 @@ export class ShoppingListService {
   }
 
   public addNewIngredient(ingredient: Ingredient) {
-    console.log('AQOI')
+    // console.log('AQOI')
     this.alertMessage = null;
     if (ingredient.amount <= 0) {
       this.alertMessage = "Invalid ingredient amount.";
@@ -27,8 +27,9 @@ export class ShoppingListService {
     this.ingredients.forEach((ingredientListItem, index) => {
       if (ingredientListItem.name == ingredient.name) {
         found = this.ingredients[index];
-        found.setAmount(
-          (Number(found.amount) + Number(ingredient.amount)
+        found.amount = ((
+          Number(found.amount) +
+          Number(ingredient.amount)
         ));
         existent = true;
         return;

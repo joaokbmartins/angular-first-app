@@ -17,7 +17,7 @@ export class AppComponent {
 
   public onChangePage(page: string): void{
     this.actualPage = page;
-    console.log(page);
+    // console.log(page);
   }
 
   public getActualPage(): string {

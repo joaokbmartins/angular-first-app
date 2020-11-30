@@ -16,7 +16,7 @@ export class RecipeItemComponent {
     private recipesService:RecipesService
   ) {}
 
-  public showDetails(): void{
+  onShowDetails(): void{
     this.recipesService.selectedRecipe.emit(this.recipe);
   }
 

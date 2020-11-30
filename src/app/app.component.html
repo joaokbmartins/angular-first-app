@@ -1,12 +1,11 @@
 <div class="container">
   <div class="col-xs-16">
-    
     <app-header (changePage)="onChangePage($event)"></app-header>
-    <app-recipe *ngIf="getActualPage()=='recipes'; else renderShoppingList"></app-recipe>
-
+    <!-- <app-recipe *ngIf="getActualPage()=='recipes'; else renderShoppingList"></app-recipe>
     <ng-template #renderShoppingList>
       <app-shopping-list></app-shopping-list>
-    </ng-template>
-    
+    </ng-template> -->
+
+    <router-outlet></router-outlet>
   </div>
 </div>

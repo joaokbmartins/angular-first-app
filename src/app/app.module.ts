@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
+import { AppRoutingModule } from './app-routing.module';
+
 import { IngredientComponent } from './components/shopping-list/ingredient/ingredient.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -29,7 +31,8 @@ import { ShoppingListService } from './components/shopping-list/shopping-list.se
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule,
   ],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]
