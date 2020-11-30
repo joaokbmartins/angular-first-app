@@ -1,23 +1,22 @@
 <div class="row">
-
   <div class="col-md-12">
     <button class="btn btn-success">New Recipe</button>
     <hr />
   </div>
-  
+
   <div class="col-md-5">
     <app-recipe-list></app-recipe-list>
   </div>
 
-  <div class="col-md-7"> 
-    <app-recipe-detail 
+  <div class="col-md-7">
+    <router-outlet></router-outlet>
+    <!-- <app-recipe-detail 
       [recipeToDetail]="selectedRecipe"
       *ngIf="selectedRecipe != null; else renderInfoMessage"></app-recipe-detail>
     <ng-template #renderInfoMessage>
       <div class="alert">
         <span>Please, select a recipe to see it's details.</span>
       </div>
-    </ng-template>
+    </ng-template> -->
   </div>
-  
 </div>

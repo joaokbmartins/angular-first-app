@@ -15,11 +15,12 @@ import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item
 import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
 import { ToggleDropDirective } from './shared/directives/toggle-drop.directive';
 import { ShoppingListService } from './components/shopping-list/shopping-list.service';
+import { WarningPageComponent } from './shared/components/warning-page/warning-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent, 
+    HeaderComponent,
     RecipeComponent,
     RecipeListComponent,
     RecipeDetailComponent,
@@ -27,14 +28,11 @@ import { ShoppingListService } from './components/shopping-list/shopping-list.se
     ShoppingListComponent,
     ShoppingEditComponent,
     IngredientComponent,
-    ToggleDropDirective
+    ToggleDropDirective,
+    WarningPageComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-  ],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [ShoppingListService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
