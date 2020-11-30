@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
+
 import { __spreadArrays } from 'tslib';
+import { Ingredient } from './ingredient/ingredient.model';
 
 @Injectable()
 export class ShoppingListService {
@@ -17,17 +18,17 @@ export class ShoppingListService {
   public addNewIngredient(ingredient: Ingredient) {
     console.log('AQOI')
     this.alertMessage = null;
-    if (ingredient.getAmount() <= 0) {
+    if (ingredient.amount <= 0) {
       this.alertMessage = "Invalid ingredient amount.";
       return;
     }
     var existent = false;
     var found = null;
     this.ingredients.forEach((ingredientListItem, index) => {
-      if (ingredientListItem.getName() == ingredient.getName()) {
+      if (ingredientListItem.name == ingredient.name) {
         found = this.ingredients[index];
         found.setAmount(
-          (Number(found.getAmount()) + Number(ingredient.getAmount())
+          (Number(found.amount) + Number(ingredient.amount)
         ));
         existent = true;
         return;
@@ -44,12 +45,12 @@ export class ShoppingListService {
     var existent:boolean = false;
     var insuficientAmount:boolean = false;
     this.ingredients.forEach((ingredientListItem, index) => {
-      if (ingredientListItem.getName() == toDelete.getName()) {
+      if (ingredientListItem.name == toDelete.name) {
         var found = this.ingredients[index];
         
-        if (found.getAmount() > toDelete.getAmount()) {
-          this.ingredients[index].setAmount(found.getAmount() - toDelete.getAmount());
-        } else if (found.getAmount() == toDelete.getAmount()) {
+        if (found.amount > toDelete.amount) {
+          this.ingredients[index].amount = (found.amount - toDelete.amount);
+        } else if (found.amount == toDelete.amount) {
           this.ingredients.splice(index, 1);
         } else {
           insuficientAmount = true;

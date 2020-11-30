@@ -20,7 +20,7 @@ export class RecipeDetailComponent {
   ) { }
 
   addToShoppingList(): void {
-    this.recipesService.addToShoppingList(this.recipeToDetail.getIngredients());
+    this.recipesService.addToShoppingList(this.recipeToDetail.ingredients);
   }
   
 }

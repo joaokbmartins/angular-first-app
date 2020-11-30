@@ -3,7 +3,8 @@ import {
   Input,
   OnInit
 } from '@angular/core';
-import { Ingredient } from '../../shared/models/ingredient.model';
+
+import { Ingredient } from './ingredient/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
 
 @Component({
