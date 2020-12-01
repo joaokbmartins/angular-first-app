@@ -14,7 +14,7 @@ export class WarningPageComponent {
   ) { }
 
   ngOnInit() {
-    console.log(this.route.data['warning-message']);
+    this.warningMessage = this.route.snapshot.data['warning-message']; 
   }
 
 }

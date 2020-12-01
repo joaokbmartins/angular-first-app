@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RecipeDetailGuard } from './components/recipe/recipe-detail/recipe-detail-guard.service';
 
 import { RecipeDetailComponent } from './components/recipe/recipe-detail/recipe-detail.component';
 import { RecipeManagerComponent } from './components/recipe/recipe-manager/recipe-manager.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { WarningPageComponent } from './shared/components/warning-page/warning-page.component';
+import { UrlIdGuard } from './shared/services/url-id-guard.service';
 
 const appRoutes: Routes = [
   {
@@ -17,6 +17,13 @@ const appRoutes: Routes = [
   {
     path: 'recipes/manager',
     component: RecipeManagerComponent,
+    canActivateChild: [UrlIdGuard],
+    children: [
+      {
+        path: ':id',
+        component: RecipeManagerComponent,
+      },
+    ],
   },
   {
     path: 'recipes',
@@ -25,9 +32,7 @@ const appRoutes: Routes = [
       {
         path: ':id',
         component: RecipeDetailComponent,
-        canActivate: [
-          RecipeDetailGuard
-        ]
+        canActivate: [UrlIdGuard],
       },
     ],
   },
@@ -38,10 +43,12 @@ const appRoutes: Routes = [
   {
     path: 'warning-page',
     component: WarningPageComponent,
+    data: { 'warning-message': '404 - Page not found.' },
   },
   {
     path: '**',
     redirectTo: '/warning-page',
+    data: { 'warning-message': '404 - Page not found.' },
   },
 ];
 @NgModule({

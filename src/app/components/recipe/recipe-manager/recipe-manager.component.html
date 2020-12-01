@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>Recipe Manager</h2>
+    <hr>
+  </div>
+</div>
+<div class="row" *ngIf="recipeId > 0">
+  <div class="col-md-4 col-sm-2 ">
+    <div class="input-group">
+      <label for="id">Recipe Code</label>
+      <input type="text" class="form-control" name="id" id="id" disabled="true"/>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="row">
+  <div class="col-md-6 col-sm-4 ">
+    <div class="input-d">
+      <label for="name">Recipe Name</label>
+      <input type="text" class="form-control" name="name" id="name"/>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-sm-4 ">
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-sm-4 ">
+    <div class="input-groupl">
+      <label for="amount">Recipe Amount</label>
+      <input type="text" class="form-control" name="amount" id="amount"/>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-sm-4 ">
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-sm-4 ">
+    <button class="btn btn-success">{{ managerOperation }}</button>
+  </div>
+</div>

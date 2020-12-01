@@ -4,8 +4,9 @@ import { Recipe } from 'src/app/components/recipe/recipe.model';
 import { Ingredient } from '../shopping-list/ingredient/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
-@Injectable()
-// { providedIn: 'root' }
+@Injectable(
+  // { providedIn: 'root' }
+)
 export class RecipesService {
   // recipesChanged
   private recipes: Array<Recipe> = new Array<Recipe>();
