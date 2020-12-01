@@ -1,11 +1,9 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRouteSnapshot,
   Params,
   Router,
-  RouterState,
-} from '@angular/router';
+} from '@angular/router'; 
 
 import { Recipe } from '../recipe.model';
 import { RecipesService } from '../recipes.service';
@@ -28,6 +26,10 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       var id: number = Number(params['id']);
+      if (isNaN(id)) {
+        this.router.navigate(['recipes']);
+        return;
+      }
       this.recipeToDetail = this.recipesService.getRecipeById(id);
     });
   }

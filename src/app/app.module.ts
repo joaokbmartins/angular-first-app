@@ -15,7 +15,9 @@ import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item
 import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
 import { ToggleDropDirective } from './shared/directives/toggle-drop.directive';
 import { ShoppingListService } from './components/shopping-list/shopping-list.service';
-import { WarningPageComponent } from './shared/components/warning-page/warning-page.component';
+import { WarningPageComponent } from './shared/components/warning-page/warning-page.component'; 
+import { RecipeManagerComponent } from './components/recipe/recipe-manager/recipe-manager.component'; 
+import { RecipeDetailGuard } from './components/recipe/recipe-detail/recipe-detail-guard.service';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,10 @@ import { WarningPageComponent } from './shared/components/warning-page/warning-p
     IngredientComponent,
     ToggleDropDirective,
     WarningPageComponent,
+    RecipeManagerComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
-  providers: [ShoppingListService],
+  providers: [ShoppingListService, RecipeDetailGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
