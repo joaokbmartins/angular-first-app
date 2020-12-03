@@ -11,7 +11,9 @@ export class RecipesService {
   // recipesChanged
   private recipes: Array<Recipe> = new Array<Recipe>();
 
-  selectedRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+  // selectedRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+
+  private onRecipeListUpdate: EventEmitter<Array<Recipe>> = new EventEmitter<Array<Recipe>>();
 
   constructor(private shoppingListService: ShoppingListService) {
     this.recipes.push(
@@ -55,5 +57,14 @@ export class RecipesService {
       }
     );
     return recipe;
+  }
+
+  getNextId(): number {
+    return this.recipes[this.recipes.length - 1].id;
+  }
+
+  saveRecipe(recipe: Recipe): void {
+    this.recipes.push(recipe);
+    // this.onRecipeListUpdate.emit(this.recipes.slice());
   }
 }
