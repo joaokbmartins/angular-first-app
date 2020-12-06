@@ -1,12 +1,5 @@
 
-<ul class='nav'>
-  <li class="dropdown" appLiveSearch>
-    <input type="text" class="form-control" id="liveSearch" placeholder="Ingredient Name" autocomplete="off"/>
-  </li>
-</ul>
 
-
-<hr>
 <div class="row">
   <div class="col-xs-12">
     <form>
@@ -19,8 +12,7 @@
       </div>
       <div class="row">
         <div class="col-sm-5 form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" class="form-control" #inputName />
+          <app-live-search></app-live-search>
         </div>
         <div class="col-sm-2 form-group">
           <label for="amount">Amount</label>

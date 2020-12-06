@@ -17,8 +17,9 @@ import { ToggleDropDirective } from './shared/directives/toggle-drop.directive';
 import { ShoppingListService } from './components/shopping-list/shopping-list.service';
 import { WarningPageComponent } from './shared/components/warning-page/warning-page.component'; 
 import { RecipeManagerComponent } from './components/recipe/recipe-manager/recipe-manager.component';  
-import { UrlIdGuard } from './shared/services/url-id-guard.service';
-import { LiveSearchDirective } from './shared/directives/livesearch.directive';
+import { UrlIdGuard } from './shared/services/url-id-guard.service'; 
+import { LiveSearchComponent } from './shared/components/live-search/live-search.component';
+import { LiveSearchDirective } from './shared/components/live-search/livesearch.directive';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { LiveSearchDirective } from './shared/directives/livesearch.directive';
     ToggleDropDirective,
     WarningPageComponent,
     RecipeManagerComponent,
+    LiveSearchComponent,
     LiveSearchDirective,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],

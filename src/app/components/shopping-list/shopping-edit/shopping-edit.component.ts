@@ -1,34 +1,29 @@
-import {
-  Component,
-  ViewChild,
-  ElementRef
-} from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 import { Ingredient } from '../ingredient/ingredient.model';
 import { IngredientsService } from '../ingredient/ingredients.service';
 import { ShoppingListService } from '../shopping-list.service';
 
-@Component ({
-    selector: 'app-shopping-edit',
-    templateUrl: './shopping-edit.component.html'
+@Component({
+  selector: 'app-shopping-edit',
+  templateUrl: './shopping-edit.component.html',
+  styleUrls: ['shopping-edit.component.css'],
 })
-
 export class ShoppingEditComponent {
- 
   alertMessage: string = null;
 
   @ViewChild('inputName', { static: true })
   private inputName: ElementRef = null;
-  
-  @ViewChild('inputAmount', { static: true }) 
+
+  @ViewChild('inputAmount', { static: true })
   private inputAmount: ElementRef = null;
 
   constructor(
-    private shoppingListService: ShoppingListService, 
+    private shoppingListService: ShoppingListService,
     private ingredientsService: IngredientsService
-  ) { }
-  
-  ngDoCheck() { 
+  ) {}
+
+  ngDoCheck() {
     this.alertMessage = this.shoppingListService.alertMessage;
   }
 
@@ -37,17 +32,20 @@ export class ShoppingEditComponent {
   }
 
   public onAddIngredient(): void {
-    const ingredientName: string = this.inputName.nativeElement.value
+    const ingredientName: string = this.inputName.nativeElement.value;
     const ingredientAmount: number = this.inputAmount.nativeElement.value;
     const ingredientId: number = this.ingredientsService.nextIngredientId();
-    this.shoppingListService.addNewIngredient(new Ingredient(ingredientId, ingredientName, ingredientAmount));
+    this.shoppingListService.addNewIngredient(
+      new Ingredient(ingredientId, ingredientName, ingredientAmount)
+    );
   }
 
   public onDeleteIngredient(): void {
-    const ingredientName: string = this.inputName.nativeElement.value
-    const ingredientAmount:number = this.inputAmount.nativeElement.value;
+    const ingredientName: string = this.inputName.nativeElement.value;
+    const ingredientAmount: number = this.inputAmount.nativeElement.value;
     const ingredientId: number = this.ingredientsService.nextIngredientId();
-    this.shoppingListService.addNewIngredient(new Ingredient(ingredientId, ingredientName, ingredientAmount));
-  } 
-    
+    this.shoppingListService.addNewIngredient(
+      new Ingredient(ingredientId, ingredientName, ingredientAmount)
+    );
+  }
 }
