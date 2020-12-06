@@ -1,3 +1,18 @@
+
+<ul class='nav'>
+  <li class="dropdown" appLiveSearch>
+    <input type="text" class="form-control" id="liveSearch" placeholder="Ingredient Name" autocomplete="off"/>
+    <ul class="dropdown-menu">
+      <li>A</li>
+      <li>B</li>
+      <li>C</li>
+      <li>D</li>
+    </ul>
+  </li>
+</ul>
+
+
+<hr>
 <div class="row">
   <div class="col-xs-12">
     <form>
@@ -30,7 +45,7 @@
           &nbsp;
           <button class="btn btn-danger" type="button" (click)="onDeleteIngredient()">Delete</button>
           &nbsp;
-          <button class="btn btn-primary" type="button" (click)="onClearList()">Clear</button>
+          <button class="btn btn-default" type="button" (click)="onClearList()">Clear</button>
         </div>
       </div>
     </form>

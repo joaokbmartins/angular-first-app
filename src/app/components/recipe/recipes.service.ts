@@ -22,21 +22,21 @@ export class RecipesService {
         'BATATA CRISPY',
         'A simple, healthier Recipe for Lebanese Spicy Potatoes!',
         'https://www.restaurantnews.com/wp-content/uploads/2017/05/Hickory-Tavern-Tavern-Burger.jpg',
-        [new Ingredient('BATATA', 1), new Ingredient('CRISPY', 8)]
+        [new Ingredient(3, 'BATATA', 1), new Ingredient(1, 'CRISPY', 8)]
       ),
       new Recipe(
         1,
         'DORITOS',
         'Doritos com Coca Cola!',
         'https://i2.wp.com/media.globalnews.ca/videostatic/352/947/FINAL-5HEALTHYFOODS.jpg?w=1040&quality=70&strip=all',
-        [new Ingredient('DORITOS', 3), new Ingredient('COCA', 3)]
+        [new Ingredient(4, 'DORITOS', 3), new Ingredient(2, 'COCA', 3)]
       ),
       new Recipe(
         2,
         'CEBOLITOS',
         'Cebolitos com Coca Cola!',
         'https://previews.123rf.com/images/handmadepictures/handmadepictures1610/handmadepictures161000643/64554293-fish-sticks-on-a-sandwich-close-up-shot-selective-focus-.jpg',
-        [new Ingredient('CEBOLITOS', 3), new Ingredient('COCA', 3)]
+        [new Ingredient(5, 'CEBOLITOS', 3), new Ingredient(0, 'COCA', 3)]
       )
     );
   }

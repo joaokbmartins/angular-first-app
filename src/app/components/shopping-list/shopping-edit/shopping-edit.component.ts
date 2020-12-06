@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 
 import { Ingredient } from '../ingredient/ingredient.model';
+import { IngredientsService } from '../ingredient/ingredients.service';
 import { ShoppingListService } from '../shopping-list.service';
 
 @Component ({
@@ -23,7 +24,8 @@ export class ShoppingEditComponent {
   private inputAmount: ElementRef = null;
 
   constructor(
-    private shoppingListService:ShoppingListService
+    private shoppingListService: ShoppingListService, 
+    private ingredientsService: IngredientsService
   ) { }
   
   ngDoCheck() { 
@@ -36,14 +38,16 @@ export class ShoppingEditComponent {
 
   public onAddIngredient(): void {
     const ingredientName: string = this.inputName.nativeElement.value
-    const ingredientAmount:number = this.inputAmount.nativeElement.value;
-    this.shoppingListService.addNewIngredient(new Ingredient(ingredientName, ingredientAmount));
+    const ingredientAmount: number = this.inputAmount.nativeElement.value;
+    const ingredientId: number = this.ingredientsService.nextIngredientId();
+    this.shoppingListService.addNewIngredient(new Ingredient(ingredientId, ingredientName, ingredientAmount));
   }
 
   public onDeleteIngredient(): void {
     const ingredientName: string = this.inputName.nativeElement.value
     const ingredientAmount:number = this.inputAmount.nativeElement.value;
-    this.shoppingListService.deleteIngredient(new Ingredient(ingredientName, ingredientAmount));
+    const ingredientId: number = this.ingredientsService.nextIngredientId();
+    this.shoppingListService.addNewIngredient(new Ingredient(ingredientId, ingredientName, ingredientAmount));
   } 
     
 }

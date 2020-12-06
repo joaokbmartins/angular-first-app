@@ -18,6 +18,7 @@ import { ShoppingListService } from './components/shopping-list/shopping-list.se
 import { WarningPageComponent } from './shared/components/warning-page/warning-page.component'; 
 import { RecipeManagerComponent } from './components/recipe/recipe-manager/recipe-manager.component';  
 import { UrlIdGuard } from './shared/services/url-id-guard.service';
+import { LiveSearchDirective } from './shared/directives/livesearch.directive';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { UrlIdGuard } from './shared/services/url-id-guard.service';
     ToggleDropDirective,
     WarningPageComponent,
     RecipeManagerComponent,
+    LiveSearchDirective,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [ShoppingListService, UrlIdGuard],
