@@ -15,7 +15,7 @@ export class LiveSearchDirective {
   private foundIngredientsList: Ingredient[] = null;
 
   @HostBinding('class.open')
-  private status = false;
+  private isSearchListOpened = false;
 
   constructor(
     private elRef: ElementRef,
@@ -25,14 +25,14 @@ export class LiveSearchDirective {
 
   @HostListener('focusin')
   private onFocusIn() {
-    if (this.foundIngredientsList) {
-      this.status = true;
+    if (this.elRef.nativeElement.childNodes[1] && this.elRef.nativeElement.childNodes[1].childNodes.length > 0) {
+      this.isSearchListOpened = true;
     }
   }
 
   @HostListener('focusout')
   private onFocusOut() {
-    this.status = false;
+    this.isSearchListOpened = false;
   }
 
   @HostListener('keyup')
@@ -40,9 +40,7 @@ export class LiveSearchDirective {
     const searchName: string = this.elRef.nativeElement.firstChild.value;
     this.newList();
     if (!searchName || searchName.trim() == '') {
-      console.log('VAZIO');
-      
-      this.status = false;
+      this.isSearchListOpened = false;
     } else {
       this.foundIngredientsList = this.searchIngredient(searchName);
       if (!this.foundIngredientsList || this.foundIngredientsList.length <= 0) {
@@ -54,7 +52,7 @@ export class LiveSearchDirective {
   }
 
   searchIngredient(searchName: string): Ingredient[] {
-    this.status = true;
+    this.isSearchListOpened = true;
     return this.ingredientsService.findIngredientByName(searchName.trim());
   }
 
@@ -80,10 +78,13 @@ export class LiveSearchDirective {
   }
 
   public newList(): void {
-    var toRemoveChild = this.elRef.nativeElement.childNodes[1];
     var ul = this.renderer.createElement('ul');
+    var toRemoveChild = this.elRef.nativeElement.childNodes[1];
+    if (toRemoveChild) {
+      this.renderer.removeChild(this.elRef.nativeElement, toRemoveChild);
+    }
+    this.foundIngredientsList = null;
     this.renderer.addClass(ul, 'dropdown-menu');
-    this.renderer.removeChild(this.elRef.nativeElement, toRemoveChild);
     this.renderer.appendChild(this.elRef.nativeElement, ul);
   }
 }
