@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 
 import { Ingredient } from '../ingredient/ingredient.model';
 import { IngredientsService } from '../ingredient/ingredients.service';
@@ -20,7 +20,8 @@ export class ShoppingEditComponent {
 
   constructor(
     private shoppingListService: ShoppingListService,
-    private ingredientsService: IngredientsService
+    private ingredientsService: IngredientsService,
+    private renderer: Renderer2,
   ) {}
 
   ngDoCheck() {
@@ -29,6 +30,11 @@ export class ShoppingEditComponent {
 
   public onClearList(): void {
     this.shoppingListService.onCleanList();
+  }
+
+  onClick() {
+    // var x = this.renderer.selectRootElement('body');
+    // console.log(x);
   }
 
   public onAddIngredient(): void {

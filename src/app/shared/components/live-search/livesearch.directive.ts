@@ -5,6 +5,8 @@ import {
   Renderer2,
   HostBinding,
   OnInit,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { Ingredient } from 'src/app/components/shopping-list/ingredient/ingredient.model';
 import { IngredientsService } from 'src/app/components/shopping-list/ingredient/ingredients.service';
@@ -16,7 +18,6 @@ export class LiveSearchDirective implements OnInit {
   private liveSearchInput = null;
   private liveSearchBody = null;
   private liveSearchBodyItems = null;
-  private isLiveSearchBodyVisible: boolean = false;
 
   constructor(
     private elRef: ElementRef,
@@ -28,6 +29,7 @@ export class LiveSearchDirective implements OnInit {
     this.liveSearchInput = this.elRef.nativeElement.childNodes[1];
     this.liveSearchBody = this.elRef.nativeElement.childNodes[2];
     this.liveSearchBodyItems = this.liveSearchBody.childNodes;
+    this.toggleBodyVisibility(false);
   }
 
   @HostListener('keyup')
@@ -37,9 +39,13 @@ export class LiveSearchDirective implements OnInit {
     if (!value || !value.trim()) {
       this.toggleBodyVisibility(false);
     } else {
+      var ingredients: Ingredient[] = this.searchForValue(value.trim());
       this.toggleBodyVisibility(true);
-      var ingredients: Ingredient[] = this.searchForValueAtBase(value);
-      this.appendResultToList(ingredients);
+      if (ingredients.length > 0) {
+        this.onSearchReturnsContent(ingredients);
+      } else {
+        this.onSearchReturnNothing();
+      }
     }
   }
 
@@ -47,7 +53,7 @@ export class LiveSearchDirective implements OnInit {
     return String(this.liveSearchInput.value);
   }
 
-  searchForValueAtBase(searchValue: string): Ingredient[] {
+  searchForValue(searchValue: string): Ingredient[] {
     return this.ingredientsService.findIngredientByName(searchValue.trim());
   }
 
@@ -60,19 +66,29 @@ export class LiveSearchDirective implements OnInit {
     }
   }
 
-  appendResultToList(ingredients: Ingredient[]): void {
+  addLiveSearchBodyItem(textToDisplay: string, isClickable?: boolean): void {
+    var liveSearchBodyItem = this.renderer.createElement('div');
+    var text = this.renderer.createText(textToDisplay);
+    this.renderer.appendChild(liveSearchBodyItem, text);
+    this.renderer.addClass(liveSearchBodyItem, 'live-search-body-item');
+    this.renderer.appendChild(this.liveSearchBody, liveSearchBodyItem);
+  }
+
+  onSearchReturnsContent(ingredients: Ingredient[]) {
     ingredients.forEach((ingItem: Ingredient) => {
-      var x = this.renderer.createElement('div');
-      var text = this.renderer.createText(ingItem.name);
-      this.renderer.appendChild(x, text);
-      this.renderer.addClass(x, 'live-search-body-item');
-      this.renderer.appendChild(this.liveSearchBody, x);
+      this.addLiveSearchBodyItem(ingItem.name.trim());
     });
+  }
+
+  onSearchReturnNothing() {
+    this.addLiveSearchBodyItem('Search not found.', false);
   }
 
   @HostListener('focusin')
   private onFocusIn() {
-    this.toggleBodyVisibility(true);
+    if (this.liveSearchInput.value) {
+      this.toggleBodyVisibility(true);
+    }
   }
 
   @HostListener('focusout')

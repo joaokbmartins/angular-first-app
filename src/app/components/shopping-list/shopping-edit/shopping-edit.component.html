@@ -1,7 +1,8 @@
-
-
+<button (click)="onClick()">check</button>
 <div class="row">
   <div class="col-xs-12">
+    <h2>Shopping List</h2>
+    <hr />
     <form>
       <div class="row" *ngIf="alertMessage">
         <div class="col-xs-12">
@@ -12,7 +13,11 @@
       </div>
       <div class="row">
         <div class="col-sm-5 form-group">
-          <app-live-search></app-live-search>
+          <app-live-search
+            [label]="'Name'"
+            [id]="'name'"
+            [name]="'name'"
+          ></app-live-search>
         </div>
         <div class="col-sm-2 form-group">
           <label for="amount">Amount</label>
@@ -29,9 +34,17 @@
             Add
           </button>
           &nbsp;
-          <button class="btn btn-danger" type="button" (click)="onDeleteIngredient()">Delete</button>
+          <button
+            class="btn btn-danger"
+            type="button"
+            (click)="onDeleteIngredient()"
+          >
+            Delete
+          </button>
           &nbsp;
-          <button class="btn btn-default" type="button" (click)="onClearList()">Clear</button>
+          <button class="btn btn-default" type="button" (click)="onClearList()">
+            Clear
+          </button>
         </div>
       </div>
     </form>
