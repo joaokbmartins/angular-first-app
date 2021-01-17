@@ -1,12 +1,8 @@
-<div class="live-search-header" id="live-search-header" appLiveSearch>
-  <label [for]="id">{{ label }}</label>
-  <input
-    autocomplete="off"
-    type="text"
-    [id]="id"
-    [name]="name"
-    placeholder="LiveSearchText"
-    class="live-search-input"
-  />
-  <div class="live-search-body" id="live-search-body"></div>
+<label for="search">Search</label>
+<input #liveSearchInput class="form-control" [value]="selectedItem.name" type="text" id="search" placeholder="Search"
+  (keydown)="onSearchItem()" (mouseenter)="onMouseEnter()" (mouseout)="onMouseOut()" (focus)="onMouseEnter()"
+  (blur)="onMouseOut()">
+<button class="btn" #liveSearchAddButton>Adicionar</button>
+<div #liveSearchBody class="live-search-body" *ngIf="foundItems > 0">
+  <div *ngFor="let item of foundItems" class="live-search-body-item">{{item}}</div>
 </div>

@@ -42,7 +42,7 @@ export class ShoppingEditComponent {
     const ingredientAmount: number = this.inputAmount.nativeElement.value;
     const ingredientId: number = this.ingredientsService.nextIngredientId();
     this.shoppingListService.addNewIngredient(
-      new Ingredient(ingredientId, ingredientName, ingredientAmount)
+      new Ingredient(ingredientId, ingredientName)
     );
   }
 
@@ -51,7 +51,7 @@ export class ShoppingEditComponent {
     const ingredientAmount: number = this.inputAmount.nativeElement.value;
     const ingredientId: number = this.ingredientsService.nextIngredientId();
     this.shoppingListService.addNewIngredient(
-      new Ingredient(ingredientId, ingredientName, ingredientAmount)
+      new Ingredient(ingredientId, ingredientName)
     );
   }
 }

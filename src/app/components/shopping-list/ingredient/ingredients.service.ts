@@ -1,58 +1,59 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
+import { IngredientListItem } from './ingredient-list-item.model';
 import { Ingredient } from './ingredient.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IngredientsService {
-
-  private ingredientList: Array<Ingredient> = new Array<Ingredient>();
+  private ingredientList: IngredientListItem[] = <IngredientListItem[]>[];
+  selectedIngredient: Ingredient = null;
 
   @Output()
   ingredientListUpdated: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
-
   constructor() {
-    this.ingredientList.push(
-      new Ingredient(0, 'rice', 1),
-      new Ingredient(1, 'bean', 1),
-      new Ingredient(2, 'bread', 1),
-    );
+    this.ingredientList.push({ ingredient: new Ingredient(0, 'rice'), amount: 2 });
+    this.ingredientList.push({ ingredient: new Ingredient(1, 'bean'), amount: 2 });
+    this.ingredientList.push({ ingredient: new Ingredient(2, 'bread'), amount: 2 });
   }
-  
+
   addIngredient(newIngredient: Ingredient): void {
-    var found: boolean = false;
-    this.ingredientList.find(
-      (ingredientItem: Ingredient) => {
-        if (ingredientItem.name === newIngredient.name) {
-          ingredientItem.amount += newIngredient.amount;
-          found = true;
-        }
-        return ingredientItem.name === newIngredient.name;
-      }
-    )
-    if (!found) {
+    if (this.isIngredientOnList(newIngredient)) {
+      console.log('item presente');
+    } else {
       newIngredient.id = this.nextIngredientId();
-      this.ingredientList.push(newIngredient);
+      this.ingredientList.push({ ingredient: newIngredient, amount: 1 });
     }
   }
 
-  findIngredientByName(name: string):Ingredient[] { 
-    var ingredients = this.ingredientList.filter(
-      (x: Ingredient) => {
-        if (x.name.includes(name)) {
-          return true;
-        }
+  isIngredientOnList(ingredient: Ingredient): boolean {
+    let isOnList: boolean = false;
+    this.ingredientList.find((ingredientListItem: IngredientListItem) => {
+      let item: Ingredient = ingredientListItem.ingredient;
+      console.log(item.name);
+      if (item.name === ingredient.name) {
+        console.log("TRUE");
+        isOnList = true;
+        return;
       }
-    );
-    return ingredients;
+    });  
+    return isOnList;
   }
 
-  nextIngredientId():number {
-    return this.ingredientList[this.ingredientList.length - 1].id + 1;
+  findIngredientByName(name: string): IngredientListItem[] {
+    return this.ingredientList.filter((ingredientListItem: IngredientListItem) => {
+      let ingredient: Ingredient = ingredientListItem.ingredient;
+      if (ingredient.name.includes(name)) {
+        return ingredientListItem;
+      }
+    });
   }
 
-  getIngredientList(): Array<Ingredient> {
-    return this.ingredientList.slice();
+  nextIngredientId(): number {
+    return +this.ingredientList[this.ingredientList.length - 1].ingredient.id + 1;
   }
-  
+
+  getIngredientList(): IngredientListItem[] {
+    return this.ingredientList;
+  }
 }

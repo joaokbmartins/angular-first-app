@@ -15,11 +15,10 @@ import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item
 import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
 import { ToggleDropDirective } from './shared/directives/toggle-drop.directive';
 import { ShoppingListService } from './components/shopping-list/shopping-list.service';
-import { WarningPageComponent } from './shared/components/warning-page/warning-page.component'; 
-import { RecipeManagerComponent } from './components/recipe/recipe-manager/recipe-manager.component';  
-import { UrlIdGuard } from './shared/services/url-id-guard.service'; 
+import { WarningPageComponent } from './shared/components/warning-page/warning-page.component';
+import { RecipeManagerComponent } from './components/recipe/recipe-manager/recipe-manager.component';
+import { UrlIdGuard } from './shared/services/url-id-guard.service';
 import { LiveSearchComponent } from './shared/components/live-search/live-search.component';
-import { LiveSearchDirective } from './shared/components/live-search/livesearch.directive';
 
 @NgModule({
   declarations: [
@@ -36,7 +35,6 @@ import { LiveSearchDirective } from './shared/components/live-search/livesearch.
     WarningPageComponent,
     RecipeManagerComponent,
     LiveSearchComponent,
-    LiveSearchDirective,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [ShoppingListService, UrlIdGuard],

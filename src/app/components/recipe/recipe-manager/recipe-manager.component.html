@@ -1,69 +1,57 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Recipe Manager</h2>
-    <hr>
+    <hr />
   </div>
 </div>
 <div class="row" *ngIf="id > 0">
-  <div class="col-md-4 col-sm-2 ">
+  <div class="col-md-4 col-sm-2">
     <div class="input-group">
       <label for="id">Recipe Code</label>
-      <input 
-        [name]="id" 
-        type="text" 
-        class="form-control" 
-        id="id" 
-        disabled="true"/>
+      <input
+        [name]="id"
+        type="text"
+        class="form-control"
+        id="id"
+        disabled="true"
+      />
     </div>
   </div>
 </div>
-<br/>
+<br />
 <div class="row">
-
   <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
     <div class="form-group">
       <label for="name">Name</label>
-      <input 
-        [name]="name" 
-        type="text" 
-        class="form-control" 
-        id="name"/>
+      <input [name]="name" type="text" class="form-control" id="name" />
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <input 
-        [name]="description" 
-        type="text" 
-        class="form-control" 
-        id="description"/>
+      <input
+        [name]="description"
+        type="text"
+        class="form-control"
+        id="description"
+      />
+    </div>
+    <div class="form-group">
+      <app-live-search></app-live-search>
     </div>
     <div class="form-group">
       <label for="imagePath">Image</label>
-      <input 
-        [name]="imagePath" 
-        type="text" 
-        class="form-control" 
-        id="imagePath"/>
-    </div>
-    <div class="form-group">
-      <label for="imagePath">Ingredients</label>
-      <select>
-        <!-- <option *ngFor="ingredient of recipe" value=""></option> -->
-      </select>
-      <input 
-        [name]="ingredients" 
-        type="text" 
-        class="form-control" 
-        id="ingredietns"/>
+      <input
+        [name]="imagePath"
+        type="text"
+        class="form-control"
+        id="imagePath"
+      />
     </div>
   </div>
-
 </div>
-
 <div class="row">
   <div class="col-md-6 col-sm-4">
-    <button
-      class="btn btn-success"
-      (click)="onManageRecipe()">{{ managerOperation }}</button>
+    <button class="btn btn-success" (click)="onManageRecipe()">
+      {{ managerOperation }}
+    </button>
   </div>
 </div>
