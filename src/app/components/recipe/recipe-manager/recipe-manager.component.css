@@ -1,0 +1,26 @@
+.recipe-ingredients-table {
+  padding: 1rem;
+}
+
+.span-amount {
+  border: 1px solid lightgray;
+  padding: 2px 5px;
+  width: 2px;
+  height: 2px;
+}
+
+.btn-icone {
+  padding: 2px 5px;
+}
+
+.btn-icone:hover {
+  cursor: pointer;
+}
+
+.btn-icone:active {
+  border: 1px solid lightgray;
+}
+
+.column-amount {
+  max-width: min-content;
+}

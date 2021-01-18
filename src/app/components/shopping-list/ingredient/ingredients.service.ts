@@ -6,54 +6,55 @@ import { Ingredient } from './ingredient.model';
   providedIn: 'root',
 })
 export class IngredientsService {
-  private ingredientList: IngredientListItem[] = <IngredientListItem[]>[];
+  // private ingredientList: IngredientListItem[] = <IngredientListItem[]>[];
+  private ingredientList: Ingredient[] = <Ingredient[]>[];
   selectedIngredient: Ingredient = null;
 
   @Output()
   ingredientListUpdated: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
   constructor() {
-    this.ingredientList.push({ ingredient: new Ingredient(0, 'rice'), amount: 2 });
-    this.ingredientList.push({ ingredient: new Ingredient(1, 'bean'), amount: 2 });
-    this.ingredientList.push({ ingredient: new Ingredient(2, 'bread'), amount: 2 });
+    // this.ingredientList.push({ ingredient: new Ingredient(0, 'rice'), amount: 2 });
+    // this.ingredientList.push({ ingredient: new Ingredient(1, 'bean'), amount: 2 });
+    // this.ingredientList.push({ ingredient: new Ingredient(2, 'bread'), amount: 2 });
+    this.ingredientList.push(new Ingredient(0, 'rice'));
+    this.ingredientList.push(new Ingredient(1, 'bean'));
+    this.ingredientList.push(new Ingredient(2, 'bread'));
   }
 
   addIngredient(newIngredient: Ingredient): void {
-    if (this.isIngredientOnList(newIngredient)) {
+    if (this.isIngredientExistent(newIngredient)) {
       console.log('item presente');
     } else {
       newIngredient.id = this.nextIngredientId();
-      this.ingredientList.push({ ingredient: newIngredient, amount: 1 });
+      this.ingredientList.push(newIngredient);
     }
   }
 
-  isIngredientOnList(ingredient: Ingredient): boolean {
+  isIngredientExistent(ingredient: Ingredient): boolean {
     let isOnList: boolean = false;
-    this.ingredientList.find((ingredientListItem: IngredientListItem) => {
-      let item: Ingredient = ingredientListItem.ingredient;
-      console.log(item.name);
+    this.ingredientList.find((item: Ingredient) => {
       if (item.name === ingredient.name) {
         console.log("TRUE");
         isOnList = true;
         return;
       }
-    });  
+    });
     return isOnList;
   }
 
-  findIngredientByName(name: string): IngredientListItem[] {
-    return this.ingredientList.filter((ingredientListItem: IngredientListItem) => {
-      let ingredient: Ingredient = ingredientListItem.ingredient;
+  findIngredientByName(name: string): Ingredient[] {
+    return this.ingredientList.filter((ingredient: Ingredient) => {
       if (ingredient.name.includes(name)) {
-        return ingredientListItem;
+        return ingredient;
       }
     });
   }
 
   nextIngredientId(): number {
-    return +this.ingredientList[this.ingredientList.length - 1].ingredient.id + 1;
+    return +this.ingredientList[this.ingredientList.length - 1].id + 1;
   }
 
-  getIngredientList(): IngredientListItem[] {
+  getIngredientList(): Ingredient[] {
     return this.ingredientList;
   }
 }

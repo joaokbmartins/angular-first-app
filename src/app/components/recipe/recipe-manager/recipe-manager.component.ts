@@ -8,6 +8,7 @@ import { RecipesService } from '../recipes.service';
 @Component({
   selector: 'app-recipe-manager',
   templateUrl: 'recipe-manager.component.html',
+  styleUrls: ['recipe-manager.component.css'],
   providers: [RecipesService],
 })
 export class RecipeManagerComponent implements OnInit {
@@ -44,6 +45,12 @@ export class RecipeManagerComponent implements OnInit {
         this.ingredientList = toUpdateRecipe.ingredientList;
       });
     }
+    this.ingredientList.push(
+      { ingredient: new Ingredient(1, 'A'), amount: 1 },
+      { ingredient: new Ingredient(2, 'A'), amount: 1 },
+      { ingredient: new Ingredient(3, 'A'), amount: 1 },
+      { ingredient: new Ingredient(4, 'A'), amount: 1 },
+    )
   }
 
   onIncreaseAmount(ingredient: Ingredient) {
@@ -71,6 +78,10 @@ export class RecipeManagerComponent implements OnInit {
         this.onUpdateRecipe();
         break;
     }
+  }
+
+  onAddRecipeIngredient(ingredient: Ingredient) {
+    this.ingredientList.push({ ingredient: ingredient, amount: 1 });
   }
 
   onSaveRecipe(): void {

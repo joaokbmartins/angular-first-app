@@ -2,9 +2,13 @@
   border: 1px solid lightgray;
   border-radius: 5px;
   padding: 1rem;
+  position: absolute;
+  z-index: 1;
+  background-color: white;
 }
 
 .live-search-body-item {
+  min-width: 200px;
   border: 1px solid lightgray;
   border-radius: 5px;
   padding: 1rem;
@@ -12,4 +16,8 @@
 
 .live-search-body-item:hover {
   background-color: rgba(211, 211, 211, 0.267);
+}
+
+.remove-border-radius { 
+  border-radius: 0;
 }

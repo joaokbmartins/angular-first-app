@@ -8,13 +8,7 @@
   <div class="col-md-4 col-sm-2">
     <div class="input-group">
       <label for="id">Recipe Code</label>
-      <input
-        [name]="id"
-        type="text"
-        class="form-control"
-        id="id"
-        disabled="true"
-      />
+      <input [name]="id" type="text" class="form-control" id="id" disabled="true" />
     </div>
   </div>
 </div>
@@ -27,24 +21,36 @@
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <input
-        [name]="description"
-        type="text"
-        class="form-control"
-        id="description"
-      />
+      <input [name]="description" type="text" class="form-control" id="description" />
     </div>
     <div class="form-group">
-      <app-live-search></app-live-search>
+      <app-live-search (itemSelected)="onAddRecipeIngredient($event)"></app-live-search>
+      <div class="recipe-ingredients-table">
+        <table class="table table-hover table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="column column-id">Id</th>
+              <th class="column column-name">Name</th>
+              <th class="column column-amount">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of ingredientList">
+              <td class="column column-id">{{item.ingredient.id}}</td>
+              <td class="column column-name">{{item.ingredient.name}}</td>
+              <td class="column column-amount">
+                <span class="btn-icone glyphicon glyphicon-plus"></span>
+                <span class="span-amount">{{item.amount}}</span>
+                <span class="btn-icone glyphicon glyphicon-minus"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="form-group">
       <label for="imagePath">Image</label>
-      <input
-        [name]="imagePath"
-        type="text"
-        class="form-control"
-        id="imagePath"
-      />
+      <input [name]="imagePath" type="text" class="form-control" id="imagePath" />
     </div>
   </div>
 </div>

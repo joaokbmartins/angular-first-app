@@ -1,8 +1,13 @@
 <label for="search">Search</label>
-<input #liveSearchInput class="form-control" [value]="selectedItem.name" type="text" id="search" placeholder="Search"
-  (keydown)="onSearchItem()" (mouseenter)="onMouseEnter()" (mouseout)="onMouseOut()" (focus)="onMouseEnter()"
-  (blur)="onMouseOut()">
-<button class="btn" #liveSearchAddButton>Adicionar</button>
-<div #liveSearchBody class="live-search-body" *ngIf="foundItems > 0">
-  <div *ngFor="let item of foundItems" class="live-search-body-item">{{item}}</div>
+<div class="input-group">
+  <input #liveSearchInput class="form-control" autocomplete="off" [disabled]="selectedItem" [value]="selectedItem?.name" type="text" id="search" placeholder="Search" (keyup)="onSearchItem($event)">
+  <div class="input-group-btn">
+    <button class="btn btn-warning remove-border-radius" *ngIf="selectedItem" (click)="removeSelection()">x</button>
+    <button class="btn btn-success" [disabled]="!selectedItem" (click)="onSelectIngredient()">Adicionar</button>
+  </div>
+</div>
+<div #liveSearchBody class="live-search-body" *ngIf="foundItems?.length > 0">
+  <div *ngFor="let item of foundItems" (click)="onClickLiveSearchItem($event)" [id]="item.id" class="live-search-body-item">
+    {{item.name}}
+  </div>
 </div>
