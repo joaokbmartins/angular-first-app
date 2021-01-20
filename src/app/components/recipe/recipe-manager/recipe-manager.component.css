@@ -2,25 +2,27 @@
   padding: 1rem;
 }
 
+.options {
+  /*  */
+  border: 1px solid blue;
+  /* padding: 5px; */
+  display: flex;
+  border-collapse: collapse;
+}
+
 .span-amount {
-  border: 1px solid lightgray;
-  padding: 2px 5px;
-  width: 2px;
-  height: 2px;
+  font-weight: bold;
+  margin: 0 10px;
 }
 
-.btn-icone {
-  padding: 2px 5px;
+.th-column-id {
+  width: 7rem;
 }
 
-.btn-icone:hover {
-  cursor: pointer;
-}
-
-.btn-icone:active {
-  border: 1px solid lightgray;
+.th-column-amount {
+  width: 11rem;
 }
 
 .column-amount {
-  max-width: min-content;
+  max-width: fit-content;
 }

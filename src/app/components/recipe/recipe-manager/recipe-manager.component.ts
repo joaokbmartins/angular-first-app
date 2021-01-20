@@ -53,20 +53,40 @@ export class RecipeManagerComponent implements OnInit {
     )
   }
 
-  onIncreaseAmount(ingredient: Ingredient) {
-    this.ingredientList.find((item) => {
-      if (item.ingredient === ingredient) {
-        item.amount = item.amount++;
-      }
-    });
+  onIncreaseAmount(ingredientListItem: IngredientListItem) {
+    if (ingredientListItem.amount < 99) {
+      ingredientListItem.amount++;
+    } else {
+      console.log('MAX REACHED');
+    }
   }
 
-  onDecreaseAmount(ingredient: Ingredient) {
-    this.ingredientList.find((item) => {
-      if (item.ingredient === ingredient) {
-        item.amount = item.amount--;
+  onSaveRecipe(): void {
+    this.recipesService.saveRecipe(
+      new Recipe(
+        0,
+        this.name,
+        this.description,
+        this.imagePath,
+        this.ingredientList
+      )
+    );
+  }
+
+  onUpdateRecipe(): void { }
+
+  onDecreaseAmount(ingredientListItem: IngredientListItem) {
+    if (ingredientListItem.amount > 1) {
+      ingredientListItem.amount--;
+    } else {
+      if (confirm('Remove item from list?')) {
+        this.onRemoveItemFromIngredientList(ingredientListItem);
       }
-    });
+    }
+  }
+
+  onRemoveItemFromIngredientList(ingredientListItem: IngredientListItem) {
+    this.ingredientList.splice(this.ingredientList.indexOf(ingredientListItem), 1);
   }
 
   onManageRecipe(): void {
@@ -83,19 +103,4 @@ export class RecipeManagerComponent implements OnInit {
   onAddRecipeIngredient(ingredient: Ingredient) {
     this.ingredientList.push({ ingredient: ingredient, amount: 1 });
   }
-
-  onSaveRecipe(): void {
-    var id = this.recipesService.getNextId();
-    this.recipesService.saveRecipe(
-      new Recipe(
-        id,
-        this.name,
-        this.description,
-        this.imagePath,
-        this.ingredientList
-      )
-    );
-  }
-
-  onUpdateRecipe(): void { }
 }

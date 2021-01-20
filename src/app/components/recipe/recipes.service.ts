@@ -7,14 +7,14 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 @Injectable()
 // { providedIn: 'root' }
 export class RecipesService {
-  private recipes: Array<Recipe> = new Array<Recipe>();
+  private recipeList: Array<Recipe> = new Array<Recipe>();
 
   private onRecipeListUpdate: EventEmitter<Array<Recipe>> = new EventEmitter<
     Array<Recipe>
   >();
 
   constructor(private shoppingListService: ShoppingListService) {
-    this.recipes.push(
+    this.recipeList.push(
       new Recipe(
         0,
         'BATATA CRISPY',
@@ -53,23 +53,44 @@ export class RecipesService {
   }
 
   getRecipes(): Array<Recipe> {
-    return this.recipes.slice();
+    return this.recipeList.slice();
   }
 
   getRecipeById(id: number): Recipe {
     id = Number(id);
-    const recipe: Recipe = this.recipes.find((recipeItem: Recipe) => {
+    const recipe: Recipe = this.recipeList.find((recipeItem: Recipe) => {
       return recipeItem.id === id;
     });
     return recipe;
   }
 
   getNextId(): number {
-    return this.recipes[this.recipes.length - 1].id;
+    return this.recipeList[this.recipeList.length - 1].id;
+  }
+
+  isRecipeOnList(recipe: Recipe): boolean {
+    console.log('a');
+    
+    this.recipeList.forEach(item => {
+      console.log(item, ' ', recipe);
+      if (item.name == recipe.name) {
+        console.log('FOUND');
+        return true;
+      }
+    });
+    return false;
   }
 
   saveRecipe(recipe: Recipe): void {
-    this.recipes.push(recipe);
-    this.onRecipeListUpdate.emit(this.recipes.slice());
+    console.log(this.recipeList.length);
+    
+    this.isRecipeOnList(recipe);
+    if (this.isRecipeOnList(recipe)) {
+      console.log('RECIPE ALREADY ADDED.');
+      return;
+    }
+    recipe.id = this.getNextId();
+    // this.recipeList.push(recipe);
+    this.onRecipeListUpdate.emit(this.recipeList.slice());
   }
 }
