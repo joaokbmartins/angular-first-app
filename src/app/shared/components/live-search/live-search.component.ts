@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { RecipesService } from 'src/app/components/recipe/recipes.service';
 import { Ingredient } from 'src/app/components/shopping-list/ingredient/ingredient.model';
 import { IngredientsService } from 'src/app/components/shopping-list/ingredient/ingredients.service';
@@ -11,9 +11,11 @@ import { IngredientsService } from 'src/app/components/shopping-list/ingredient/
 export class LiveSearchComponent {
 
   @Output("itemSelected") emitLiveSearchItemSelected: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
-
   @ViewChild("liveSearchInput") liveSearchInput: ElementRef<HTMLInputElement>;
   @ViewChild("liveSearchBody") liveSearchBody: ElementRef<HTMLDivElement>;
+  @Input() id: number;
+  @Input() label: string;
+  @Input() placeholder: string;
 
   foundItems: Ingredient[] = null;
   selectedItem: Ingredient = null;

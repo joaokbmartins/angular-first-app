@@ -12,7 +12,6 @@
 
 .span-amount {
   font-weight: bold;
-  margin: 0 10px;
 }
 
 .th-column-id {
@@ -20,9 +19,22 @@
 }
 
 .th-column-amount {
-  width: 11rem;
+  width: 10rem;
 }
 
 .column-amount {
-  max-width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+.alert-message{
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  color: rgb(75, 75, 75);
+  background-color: rgba(255, 255, 0, 0.185);
+} 

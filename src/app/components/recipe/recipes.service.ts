@@ -4,8 +4,7 @@ import { Recipe } from 'src/app/components/recipe/recipe.model';
 import { Ingredient } from '../shopping-list/ingredient/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
-@Injectable()
-// { providedIn: 'root' }
+@Injectable({ providedIn: 'root' })
 export class RecipesService {
   private recipeList: Array<Recipe> = new Array<Recipe>();
 
@@ -65,12 +64,13 @@ export class RecipesService {
   }
 
   getNextId(): number {
+    console.log("getNextId: ");
     return this.recipeList[this.recipeList.length - 1].id;
   }
 
   isRecipeOnList(recipe: Recipe): boolean {
     console.log('a');
-    
+
     this.recipeList.forEach(item => {
       console.log(item, ' ', recipe);
       if (item.name == recipe.name) {
@@ -82,15 +82,11 @@ export class RecipesService {
   }
 
   saveRecipe(recipe: Recipe): void {
-    console.log(this.recipeList.length);
-    
     this.isRecipeOnList(recipe);
     if (this.isRecipeOnList(recipe)) {
-      console.log('RECIPE ALREADY ADDED.');
       return;
     }
     recipe.id = this.getNextId();
-    // this.recipeList.push(recipe);
     this.onRecipeListUpdate.emit(this.recipeList.slice());
   }
 }
