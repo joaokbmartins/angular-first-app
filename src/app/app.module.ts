@@ -19,7 +19,6 @@ import { WarningPageComponent } from './shared/components/warning-page/warning-p
 import { RecipeManagerComponent } from './components/recipe/recipe-manager/recipe-manager.component';
 import { UrlIdGuard } from './shared/services/url-id-guard.service';
 import { LiveSearchComponent } from './shared/components/live-search/live-search.component';
-import { AlertMessageComponent } from './shared/components/alert-message/alert-message.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +35,6 @@ import { AlertMessageComponent } from './shared/components/alert-message/alert-m
     WarningPageComponent,
     RecipeManagerComponent,
     LiveSearchComponent,
-    AlertMessageComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [ShoppingListService, UrlIdGuard],

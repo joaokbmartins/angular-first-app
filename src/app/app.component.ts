@@ -4,18 +4,18 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   // styleUrls: ['./app.component.css'],
-  styles: [`
-    h1 {
-      color: dodgerblue;
-    }
-  `]
+  styles: [
+    `
+      h1 {
+        color: dodgerblue;
+      }
+    `,
+  ],
 })
-
-export class AppComponent { 
-
+export class AppComponent {
   private actualPage: string = 'recipes';
 
-  public onChangePage(page: string): void{
+  public onChangePage(page: string): void {
     this.actualPage = page;
     // console.log(page);
   }
@@ -23,5 +23,4 @@ export class AppComponent {
   public getActualPage(): string {
     return this.actualPage;
   }
-
 }

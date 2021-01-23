@@ -14,10 +14,9 @@ import { RecipesService } from '../recipes.service';
 })
 export class RecipeManagerComponent implements OnInit {
   id: number = 0;
-  name: string = null;
-  amount: number = 0;
-  description: string = null;
-  imagePath: string = null;
+  name: string = "TEST";
+  description: string = "TEST DESCRIPTION";
+  imagePath: string = "https://ichef.bbci.co.uk/images/ic/832xn/p08nk96t.jpg";
   toUpdateRecipe: Recipe = null;
   recipeIngredientList: IngredientListItem[] = null;
   managerOperation: string = 'Save Recipe';
@@ -42,29 +41,12 @@ export class RecipeManagerComponent implements OnInit {
         this.recipeIngredientList = toUpdateRecipe.ingredientList;
       });
     }
-    this.recipeIngredientList.push(
-      { ingredient: new Ingredient(3, 'A'), amount: 1 },
-      { ingredient: new Ingredient(1, 'A'), amount: 9 }
-    );
   }
-
-  onSaveRecipe(): void {
-    this.recipesService.saveRecipe(
-      new Recipe(
-        0,
-        this.name,
-        this.description,
-        this.imagePath,
-        this.recipeIngredientList
-      )
-    );
-  }
-
-  onUpdateRecipe(): void {}
 
   onManageRecipe(): void {
     switch (this.managerOperation) {
       case 'Save Recipe':
+        console.log('onManageRecipe >>>>>>');
         this.onSaveRecipe();
         break;
       case 'Update Recipe':
@@ -72,6 +54,19 @@ export class RecipeManagerComponent implements OnInit {
         break;
     }
   }
+
+  onSaveRecipe(): void {
+    let newRecipe: Recipe = new Recipe(
+      0,
+      this.name,
+      this.description,
+      this.imagePath,
+      this.recipeIngredientList
+    );
+    this.recipesService.saveRecipe(newRecipe);
+  }
+
+  onUpdateRecipe(): void {}
 
   onBtnIncrease(event: Event, ingredientListItem: IngredientListItem): void {
     if (event['button'] === 0) {

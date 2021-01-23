@@ -1,7 +1,5 @@
 import { IngredientListItem } from '../shopping-list/ingredient/ingredient-list-item.model';
 
- 
-
 export class Recipe {
   id: number = 0;
   name: string = null;

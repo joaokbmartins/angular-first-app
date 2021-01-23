@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 
 import { Recipe } from 'src/app/components/recipe/recipe.model';
 import { Ingredient } from '../shopping-list/ingredient/ingredient.model';
@@ -8,7 +8,8 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 export class RecipesService {
   private recipeList: Array<Recipe> = new Array<Recipe>();
 
-  private onRecipeListUpdate: EventEmitter<Array<Recipe>> = new EventEmitter<
+  @Output()
+  recipeListUpdate: EventEmitter<Array<Recipe>> = new EventEmitter<
     Array<Recipe>
   >();
 
@@ -31,7 +32,7 @@ export class RecipesService {
         'https://i2.wp.com/media.globalnews.ca/videostatic/352/947/FINAL-5HEALTHYFOODS.jpg?w=1040&quality=70&strip=all',
         [
           { ingredient: new Ingredient(4, 'DORITOS'), amount: 2 },
-          { ingredient: new Ingredient(2, 'COCA'), amount: 2 }
+          { ingredient: new Ingredient(2, 'COCA'), amount: 2 },
         ]
       ),
       new Recipe(
@@ -41,10 +42,15 @@ export class RecipesService {
         'https://previews.123rf.com/images/handmadepictures/handmadepictures1610/handmadepictures161000643/64554293-fish-sticks-on-a-sandwich-close-up-shot-selective-focus-.jpg',
         [
           { ingredient: new Ingredient(5, 'CEBOLITOS'), amount: 1 },
-          { ingredient: new Ingredient(0, 'COCA'), amount: 2 }
-        ],
+          { ingredient: new Ingredient(0, 'COCA'), amount: 2 },
+        ]
       )
     );
+    this.emittRecipeListUpdated();
+  }
+
+  emittRecipeListUpdated() {
+    this.recipeListUpdate.emit(this.getRecipes());
   }
 
   addToShoppingList(ingredients: Map<Ingredient, number>): void {
@@ -52,6 +58,8 @@ export class RecipesService {
   }
 
   getRecipes(): Array<Recipe> {
+    console.log(this.recipeList);
+    
     return this.recipeList.slice();
   }
 
@@ -64,29 +72,27 @@ export class RecipesService {
   }
 
   getNextId(): number {
-    console.log("getNextId: ");
-    return this.recipeList[this.recipeList.length - 1].id;
+    if (this.recipeList.length > 0) {
+      return ++this.recipeList[this.recipeList.length - 1].id;
+    }
+    return 0;
   }
 
   isRecipeOnList(recipe: Recipe): boolean {
-    console.log('a');
-
-    this.recipeList.forEach(item => {
-      console.log(item, ' ', recipe);
+    let recipeFoundOnList: boolean = false;
+    this.recipeList.find((item) => {
       if (item.name == recipe.name) {
-        console.log('FOUND');
-        return true;
+        recipeFoundOnList = true;
       }
     });
-    return false;
+    return recipeFoundOnList;
   }
 
-  saveRecipe(recipe: Recipe): void {
-    this.isRecipeOnList(recipe);
-    if (this.isRecipeOnList(recipe)) {
-      return;
+  saveRecipe(newRecipe: Recipe): void {
+    if (!this.isRecipeOnList(newRecipe)) {
+      newRecipe.id = this.getNextId();
+      this.recipeList.push(newRecipe);
+      this.emittRecipeListUpdated();
     }
-    recipe.id = this.getNextId();
-    this.onRecipeListUpdate.emit(this.recipeList.slice());
   }
 }
