@@ -20,7 +20,7 @@ export class RecipeItemComponent {
 
   onShowDetails(): void{
     this.router.navigate(['recipes', this.recipe.id]);
-    // this.recipesService.selectedRecipe.emit(this.recipe);
+    this.recipesService.selectedRecipe.emit(this.recipe);
   }
 
 }

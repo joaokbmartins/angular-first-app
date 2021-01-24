@@ -86,7 +86,11 @@
                 <td class="column-id">{{ item.ingredient.id }}</td>
                 <td class="column-name">{{ item.ingredient.name }}</td>
                 <td class="column-amount">
-                  <button
+                  <app-input-spinner
+                    [itemInitialAmount]="item.amount"
+                    (amountUpdated)="item.amount = $event"
+                  ></app-input-spinner>
+                  <!-- <button
                     class="btn btn-xs btn-warning"
                     (mousedown)="onBtnDecrease($event, item)"
                     (mouseup)="stopTimer()"
@@ -102,7 +106,7 @@
                     (mouseleave)="stopTimer()"
                   >
                     <span class="glyphicon glyphicon-plus"></span>
-                  </button>
+                  </button> -->
                 </td>
               </tr>
             </tbody>

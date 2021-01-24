@@ -11,14 +11,15 @@ import { HeaderComponent } from './components/header/header.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { RecipeListComponent } from './components/recipe/recipe-list/recipe-list.component';
 import { RecipeDetailComponent } from './components/recipe/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item/recipe-item.component';
-import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
+import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item/recipe-item.component'; 
 import { ToggleDropDirective } from './shared/directives/toggle-drop.directive';
 import { ShoppingListService } from './components/shopping-list/shopping-list.service';
 import { WarningPageComponent } from './shared/components/warning-page/warning-page.component';
 import { RecipeManagerComponent } from './components/recipe/recipe-manager/recipe-manager.component';
 import { UrlIdGuard } from './shared/services/url-id-guard.service';
-import { LiveSearchComponent } from './shared/components/live-search/live-search.component';
+import { LiveSearchComponent } from './shared/components/live-search/live-search.component'; 
+import { InputSpinner } from './shared/components/input-spinner/input-spinner.component';
+import { ShoppingSearchComponent } from './components/shopping-list/shopping-search/shopping-search.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +30,13 @@ import { LiveSearchComponent } from './shared/components/live-search/live-search
     RecipeDetailComponent,
     RecipeItemComponent,
     ShoppingListComponent,
-    ShoppingEditComponent,
+    ShoppingSearchComponent,
     IngredientComponent,
     ToggleDropDirective,
     WarningPageComponent,
     RecipeManagerComponent,
     LiveSearchComponent,
+    InputSpinner,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [ShoppingListService, UrlIdGuard],

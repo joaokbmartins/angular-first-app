@@ -1,4 +1,3 @@
-<button (click)="onClick()">check</button>
 <div class="row">
   <div class="col-xs-12">
     <h2>Shopping List</h2>
@@ -13,26 +12,34 @@
       </div>
       <div class="row">
         <div class="col-sm-5 form-group">
-          <!-- <app-live-search
-            [label]="'Name'"
-            [id]="'name'"
-            [name]="'name'"
-          ></app-live-search> -->
+          <app-live-search
+            label="Name"
+            id="name"
+            placeholder="Search Item"
+            (itemSelected)="onAddSelectedIngredient($event)"
+          ></app-live-search>
         </div>
-        <div class="col-sm-2 form-group">
+        <!-- <div class="col-sm-2 form-group">
           <label for="amount">Amount</label>
-          <input type="number" id="amount" class="form-control" #inputAmount />
-        </div>
+          <input
+            type="number"
+            id="amount"
+            class="form-control"
+            value="1"
+            min="1"
+            #inputAmount
+          />
+        </div> -->
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button
+          <!-- <button
             class="btn btn-success"
             type="submit"
             (click)="onAddIngredient()"
           >
             Add
-          </button>
+          </button> -->
           &nbsp;
           <button
             class="btn btn-danger"

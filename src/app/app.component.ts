@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   private actualPage: string = 'recipes';
+  // testVal: number = 5;
 
   public onChangePage(page: string): void {
     this.actualPage = page;

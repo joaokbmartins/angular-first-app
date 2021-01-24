@@ -1,12 +1,14 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 
 import { Recipe } from 'src/app/components/recipe/recipe.model';
+import { IngredientListItem } from '../shopping-list/ingredient/ingredient-list-item.model';
 import { Ingredient } from '../shopping-list/ingredient/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
   private recipeList: Array<Recipe> = new Array<Recipe>();
+  selectedRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
 
   @Output()
   recipeListUpdate: EventEmitter<Array<Recipe>> = new EventEmitter<
@@ -53,22 +55,20 @@ export class RecipesService {
     this.recipeListUpdate.emit(this.getRecipes());
   }
 
-  addToShoppingList(ingredients: Map<Ingredient, number>): void {
-    this.shoppingListService.addIngredientsFromRecipe(ingredients);
+  addToShoppingList(ingredientList: IngredientListItem[]): void {
+    this.shoppingListService.addIngredientsFromRecipe(ingredientList);
   }
 
   getRecipes(): Array<Recipe> {
     console.log(this.recipeList);
-    
+
     return this.recipeList.slice();
   }
 
   getRecipeById(id: number): Recipe {
-    id = Number(id);
-    const recipe: Recipe = this.recipeList.find((recipeItem: Recipe) => {
-      return recipeItem.id === id;
+    return this.recipeList.find((recipe: Recipe) => {
+      return recipe.id === id;
     });
-    return recipe;
   }
 
   getNextId(): number {

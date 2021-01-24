@@ -1,0 +1,19 @@
+<div class="spinner-container">
+  <button
+    class="btn btn-xs btn-warning"
+    (mousedown)="onBtnDecrease($event)"
+    (mouseup)="stopTimer()"
+    (mouseleave)="stopTimer()"
+  >
+    <span class="glyphicon glyphicon-minus"></span>
+  </button>
+  <span>{{ itemInitialAmount }}</span>
+  <button
+    class="btn btn-xs btn-success"
+    (mousedown)="onBtnIncrease($event)"
+    (mouseup)="stopTimer()"
+    (mouseleave)="stopTimer()"
+  >
+    <span class="glyphicon glyphicon-plus"></span>
+  </button>
+</div>

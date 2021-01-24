@@ -10,12 +10,13 @@ import { IngredientsService } from 'src/app/components/shopping-list/ingredient/
 })
 export class LiveSearchComponent {
 
-  @Output("itemSelected") emitLiveSearchItemSelected: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
-  @ViewChild("liveSearchInput") liveSearchInput: ElementRef<HTMLInputElement>;
-  @ViewChild("liveSearchBody") liveSearchBody: ElementRef<HTMLDivElement>;
   @Input() id: number;
   @Input() label: string;
   @Input() placeholder: string;
+  @Input() haveInitialAmount: boolean = false;
+  @Output("itemSelected") emitLiveSearchItemSelected: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
+  @ViewChild("liveSearchInput") liveSearchInput: ElementRef<HTMLInputElement>;
+  @ViewChild("liveSearchBody") liveSearchBody: ElementRef<HTMLDivElement>;
 
   foundItems: Ingredient[] = null;
   selectedItem: Ingredient = null;
@@ -23,7 +24,10 @@ export class LiveSearchComponent {
   constructor(
     private ingredientsService: IngredientsService,
     private recipesService: RecipesService
-  ) { }
+  ) { 
+    this.label = "Search";
+    this.placeholder = "Search item";
+  }
 
 
   onSearchItem(event: KeyboardEvent) {

@@ -1,14 +1,12 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
   Input,
   OnInit,
-  Renderer2
 } from '@angular/core';
 
-import { Ingredient } from './ingredient/ingredient.model';
+import { ShoppingListItem } from './shopping-list-item.model';
 import { ShoppingListService } from './shopping-list.service';
 
 @Component({
@@ -19,32 +17,28 @@ import { ShoppingListService } from './shopping-list.service';
   ],
 })
 export class ShoppingListComponent implements OnInit, AfterViewInit {
-  ingredients: Array<Ingredient> = new Array<Ingredient>();
+  shoppingList: ShoppingListItem[];
 
   @Input()
   alertMessage: string = null;
 
   constructor(
     private shoppingListService: ShoppingListService,
-    private renderer: Renderer2,
-    private elRef: ElementRef,
-  ) { }
+    private elRef: ElementRef
+  ) {}
 
   ngOnInit() {
-    console.log("0: ", this.elRef);
-    this.ingredients = this.shoppingListService.getIngredients();
-    this.shoppingListService.ingredientsChanged.subscribe(
-      (ingredients: Array<Ingredient>) => {
-        this.ingredients = ingredients;
-      }
-    );
+    this.shoppingList = this.shoppingListService.getShoppingList();
+    this.shoppingListService.emitShoppingListUpdated.subscribe((shoppingList: ShoppingListItem[]) => {
+      this.shoppingList = shoppingList;
+    });
   }
- 
+
   ngAfterContentInit() {
-    console.log("1: ", this.elRef);
+    console.log('1: ', this.elRef);
   }
 
   ngAfterViewInit() {
-    console.log("2: ", this.elRef);
+    console.log('2: ', this.elRef);
   }
 }
