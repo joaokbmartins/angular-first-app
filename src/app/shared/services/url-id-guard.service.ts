@@ -18,6 +18,7 @@ export class UrlIdGuard implements CanActivate, CanActivateChild {
     if (isNaN(id)) {
       this.router.navigate(['/warning-page']);
     }
+    console.log('GUARD');
     return true;
   }
 

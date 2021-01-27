@@ -8,12 +8,12 @@ import { RecipesService } from '../recipes.service';
 })
 export class RecipeListComponent implements OnInit {
   recipeList: Array<Recipe> = new Array<Recipe>();
-
+  
   constructor(private recipesService: RecipesService) {}
 
   ngOnInit() {
     this.recipeList = this.recipesService.getRecipes();
-    this.recipesService.recipeListUpdate.subscribe(
+    this.recipesService.emitRecipeListUpdate.subscribe(
       (recipeListUpdate: Array<Recipe>) => {
         console.log('RECIPE LIST UPDATED - HOME PAGE', recipeListUpdate);
         this.recipeList = recipeListUpdate;

@@ -1,47 +1,59 @@
-<div class="row">
-  <div class="col-xs-12">
-    <img src="{{ recipeToDetail.imagePath }}" alt="{{ recipeToDetail.name }}" style="max-height: 300px"
-      class="img-responsive" />
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{ recipeToDetail.name }}</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <div class="btn-group" appToggleDrop>
-      <button class="btn btn-primary dropdown-toggle">
-        Manage Recipe <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li>
-          <a style="cursor: pointer" (click)="addToShoppingList()">
-            To Shopping List
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['recipes', 'manager', recipeToDetail.id]" style="cursor: pointer">
-            Edit Recipe
-          </a>
-        </li>
-        <li><a style="cursor: pointer">Delete Recipe</a></li>
-      </ul>
+<div *ngIf="recipeToDetail">
+  <div class="row">
+    <div class="col-xs-12">
+      <img
+        src="{{ recipeToDetail.imagePath }}"
+        alt="{{ recipeToDetail.name }}"
+        style="max-height: 300px"
+        class="img-responsive"
+      />
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    {{ recipeToDetail.description }}
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{ recipeToDetail.name }}</h1>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let item of recipeToDetail.ingredientList">
-        {{ item.ingredient.name }} | {{ item.amount }}
-      </li>
-    </ul>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="btn-group" appToggleDrop>
+        <button class="btn btn-primary dropdown-toggle">
+          Manage Recipe <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a style="cursor: pointer" (click)="addToShoppingList()">
+              To Shopping List
+            </a>
+          </li>
+          <li>
+            <a
+              [routerLink]="['recipes', 'manager', recipeToDetail.id]"
+              style="cursor: pointer"
+            >
+              Edit Recipe
+            </a>
+          </li>
+          <li><a style="cursor: pointer">Delete Recipe</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      {{ recipeToDetail.description }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let item of recipeToDetail.ingredientList"
+        >
+          {{ item.ingredient.name }} | {{ item.amount }}
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

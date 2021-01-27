@@ -3,7 +3,13 @@
     <h3>Recipe List</h3>
     <app-recipe-item
       *ngFor="let recipeItem of recipeList"
-      [recipe]="recipeItem"></app-recipe-item>
-    <hr>
+      [recipe]="recipeItem"
+    ></app-recipe-item>
+    <hr />
+  </div>
+  <div class="col-xs-12">
+    <h3>Recipe Details</h3>
+    <app-recipe-detail></app-recipe-detail>
+    <hr />
   </div>
 </div>

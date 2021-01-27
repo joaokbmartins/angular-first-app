@@ -7,15 +7,14 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
-  private recipeList: Array<Recipe> = new Array<Recipe>();
-  selectedRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
-
-  @Output()
-  recipeListUpdate: EventEmitter<Array<Recipe>> = new EventEmitter<
-    Array<Recipe>
+  private recipeList: Recipe[] = null;
+  @Output() selectedRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+  @Output() emitRecipeListUpdate: EventEmitter<Recipe[]> = new EventEmitter<
+    Recipe[]
   >();
 
   constructor(private shoppingListService: ShoppingListService) {
+    this.recipeList = <Recipe[]>[];
     this.recipeList.push(
       new Recipe(
         0,
@@ -48,24 +47,26 @@ export class RecipesService {
         ]
       )
     );
-    this.emittRecipeListUpdated();
+    this.onEmitRecipeListUpdated();
   }
 
-  emittRecipeListUpdated() {
-    this.recipeListUpdate.emit(this.getRecipes());
+  onEmitRecipeListUpdated() {
+    this.emitRecipeListUpdate.emit(this.getRecipes());
   }
 
   addToShoppingList(ingredientList: IngredientListItem[]): void {
-    this.shoppingListService.addIngredientsFromRecipeToShoppingList(ingredientList);
+    this.shoppingListService.addIngredientsFromRecipeToShoppingList(
+      ingredientList
+    );
   }
 
-  getRecipes(): Array<Recipe> {
-    // console.log(this.recipeList);
-
+  getRecipes(): Recipe[] {
     return this.recipeList.slice();
   }
 
   getRecipeById(id: number): Recipe {
+    console.log('recipeID: ', id);
+
     return this.recipeList.find((recipe: Recipe) => {
       return recipe.id === id;
     });
@@ -92,7 +93,7 @@ export class RecipesService {
     if (!this.isRecipeOnList(newRecipe)) {
       newRecipe.id = this.getNextId();
       this.recipeList.push(newRecipe);
-      this.emittRecipeListUpdated();
+      this.onEmitRecipeListUpdated();
     }
   }
 }
