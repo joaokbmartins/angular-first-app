@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, OnInit } from '@angular/core';
+import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
 
 import { IngredientListItem } from './ingredient/ingredient-list-item.model';
 import { Ingredient } from './ingredient/ingredient.model';
@@ -8,69 +8,81 @@ import { ShoppingListItem } from './shopping-list-item.model';
 export class ShoppingListService implements OnInit {
   alertMessage: string = null;
   shoppingList: ShoppingListItem[] = null;
-  emitShoppingListUpdated: EventEmitter<ShoppingListItem[]> = new EventEmitter<
+  @Output() emitShoppingListUpdated: EventEmitter<
     ShoppingListItem[]
-  >();
+  > = new EventEmitter<ShoppingListItem[]>();
 
   constructor() {
     this.shoppingList = <ShoppingListItem[]>[];
-  }
-
-  ngOnInit() {
-    // this.shoppingList = <ShoppingListItem[]>[];
-  }
-
-  getShoppingList(): ShoppingListItem[] {
-    return this.shoppingList.slice();
-  }
-
-  onShoppingListUpdated(): void {
-    this.emitShoppingListUpdated.emit(this.getShoppingList());
-  }
-
-  public addIngredientsFromRecipeToShoppingList(
-    ingredientList: IngredientListItem[]
-  ): void {
-    ingredientList.forEach((ingredientListItem) =>
-      this.addItemToShoppingList(ingredientListItem)
-    );
-    this.onShoppingListUpdated();
-  }
-
-  public addItemToShoppingList<T>(items: T) {
     this.shoppingList.push();
   }
 
-  public deleteIngredient(toDelete: Ingredient): void {
-    // this.alertMessage = null;
-    // var existent: boolean = false;
-    // var insuficientAmount: boolean = false;
-    // this.ingredients.forEach((shoppingListItem, index) => {
-    //   if (shoppingListItem.name == toDelete.name) {
-    //     var found = this.ingredients[index];
-    //     if (found.amount > toDelete.amount) {
-    //       this.ingredients[index].amount = found.amount - toDelete.amount;
-    //     } else if (found.amount == toDelete.amount) {
-    //       this.ingredients.splice(index, 1);
-    //     } else {
-    //       insuficientAmount = true;
-    //     }
-    //     existent = true;
-    //     return;
-    //   }
-    // });
-    // if (!existent) {
-    //   this.alertMessage = 'Ingredient not found.';
-    // } else if (insuficientAmount) {
-    //   this.alertMessage =
-    //     "You're trying to delete more ingredients than you have on your list.";
-    // }
-    // this.emitShoppingListUpdated.emit(this.ingredients.slice());
+  ngOnInit() {}
+
+  getShoppingList(): ShoppingListItem[] {
+    // console.log('getShoppingList: ', this.shoppingList.slice());
+    return this.shoppingList.slice();
   }
 
-  public onCleanList(): void {
-    // this.alertMessage = null;
-    // this.ingredients = new Array<Ingredient>();
-    // this.emitShoppingListUpdated.emit(this.ingredients.slice());
+  emitOnShoppingListUpdated(): void {
+    this.emitShoppingListUpdated.emit(this.getShoppingList());
+    // console.log('emitted');
+  }
+
+  addIngredientsFromRecipeToShoppingList(
+    ingredientList: IngredientListItem[]
+  ): void {
+    ingredientList.forEach((ingredientListItem) =>
+      this.addProductToShoppingList(ingredientListItem)
+    );
+  }
+
+  getIdNextShoppingListItem(): number {
+    let lastItem: ShoppingListItem = this.shoppingList[
+      this.shoppingList.length - 1
+    ];
+    return lastItem ? lastItem.id + 1 : 0;
+  }
+
+  contaisProduct(product: any): boolean {
+    return this.shoppingList.some((listItem) => {
+      return this.equalsProduct(listItem.product, product);
+    });
+  }
+
+  equalsProduct(item: any, item1: any): boolean {
+    if (item['__proto__'].constructor === item1['__proto__'].constructor) {
+      for (let prop of Object.getOwnPropertyNames(item)) {
+        if (item[prop] == item1[prop]) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  addProductToShoppingList(product: any) {
+    if (!this.contaisProduct(product)) {
+      let nextItemIndex: number = this.getIdNextShoppingListItem();
+      this.shoppingList.push({
+        id: nextItemIndex,
+        amount: 1,
+        product: product,
+      });
+    }
+    this.emitOnShoppingListUpdated();
+  }
+
+  removeItemFromShoppingList(item: ShoppingListItem) {
+    let index: number = this.shoppingList.indexOf(item);
+    this.shoppingList.splice(index, 1);
+    this.emitOnShoppingListUpdated();
+  }
+
+  onCleanList(): void {
+    if (confirm('Remove all items from list?')) {
+      this.shoppingList = <ShoppingListItem[]>[];
+      this.emitOnShoppingListUpdated();
+    }
   }
 }

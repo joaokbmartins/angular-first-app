@@ -56,11 +56,11 @@ export class RecipesService {
   }
 
   addToShoppingList(ingredientList: IngredientListItem[]): void {
-    this.shoppingListService.addIngredientsFromRecipe(ingredientList);
+    this.shoppingListService.addIngredientsFromRecipeToShoppingList(ingredientList);
   }
 
   getRecipes(): Array<Recipe> {
-    console.log(this.recipeList);
+    // console.log(this.recipeList);
 
     return this.recipeList.slice();
   }

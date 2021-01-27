@@ -3,6 +3,7 @@ import { IngredientListItem } from '../ingredient/ingredient-list-item.model';
 
 import { Ingredient } from '../ingredient/ingredient.model';
 import { IngredientsService } from '../ingredient/ingredients.service';
+import { ShoppingListItem } from '../shopping-list-item.model';
 import { ShoppingListService } from '../shopping-list.service';
 
 @Component({
@@ -17,7 +18,6 @@ export class ShoppingSearchComponent {
 
   constructor(
     private shoppingListService: ShoppingListService,
-    private ingredientsService: IngredientsService,
     private renderer: Renderer2
   ) {}
 
@@ -29,8 +29,8 @@ export class ShoppingSearchComponent {
     this.shoppingListService.onCleanList();
   }
 
-  public onAddSelectedIngredient(ingredient: Ingredient): void {
-    this.shoppingListService.addItemToShoppingList(ingredient);
+  public onAddSelectedProduct(product: any): void {
+    this.shoppingListService.addProductToShoppingList(product);
   }
 
   public onDeleteIngredient(): void {

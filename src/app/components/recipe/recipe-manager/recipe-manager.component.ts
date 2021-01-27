@@ -14,9 +14,9 @@ import { RecipesService } from '../recipes.service';
 })
 export class RecipeManagerComponent implements OnInit {
   id: number = 0;
-  name: string = "TEST";
-  description: string = "TEST DESCRIPTION";
-  imagePath: string = "https://ichef.bbci.co.uk/images/ic/832xn/p08nk96t.jpg";
+  name: string = 'TEST';
+  description: string = 'TEST DESCRIPTION';
+  imagePath: string = 'https://ichef.bbci.co.uk/images/ic/832xn/p08nk96t.jpg';
   toUpdateRecipe: Recipe = null;
   recipeIngredientList: IngredientListItem[] = null;
   managerOperation: string = 'Save Recipe';
@@ -40,6 +40,14 @@ export class RecipeManagerComponent implements OnInit {
         this.imagePath = toUpdateRecipe.imagePath;
         this.recipeIngredientList = toUpdateRecipe.ingredientList;
       });
+    }
+  }
+
+  onUpdateItemAmount(ingredientItem: IngredientListItem, amount: number) {
+    if (amount > 0) {
+      ingredientItem.amount = amount;
+    } else {
+      this.onRemoveItemFromIngredientList(ingredientItem);
     }
   }
 
@@ -68,58 +76,18 @@ export class RecipeManagerComponent implements OnInit {
 
   onUpdateRecipe(): void {}
 
-  onBtnIncrease(event: Event, ingredientListItem: IngredientListItem): void {
-    if (event['button'] === 0) {
-      if (ingredientListItem.amount < 99) {
-        this.increaseAmount(ingredientListItem);
-        this.timerAmountManagement = setInterval(() => {
-          this.increaseAmount(ingredientListItem);
-          if (ingredientListItem.amount >= 99) {
-            this.stopTimer();
-          }
-        }, 400);
-      }
-    }
-  }
-
-  onBtnDecrease(event: Event, ingredientListItem?: IngredientListItem): void {
-    if (event['button'] === 0) {
-      if (ingredientListItem.amount > 1) {
-        this.decreaseAmount(ingredientListItem);
-        this.timerAmountManagement = setInterval(() => {
-          if (ingredientListItem.amount > 1) {
-            this.decreaseAmount(ingredientListItem);
-          } else {
-            this.stopTimer();
-            if (confirm('Remove item from list?')) {
-              this.onRemoveItemFromIngredientList(ingredientListItem);
-            }
-          }
-        }, 400);
-      } else if (confirm('Remove item from list?')) {
-        this.onRemoveItemFromIngredientList(ingredientListItem);
-      }
-    }
-  }
-
-  stopTimer(): void {
-    clearInterval(this.timerAmountManagement);
-    this.timerAmountManagement = null;
-  }
-
-  increaseAmount(ingredientListItem: IngredientListItem): void {
-    ingredientListItem.amount++;
-  }
-
-  decreaseAmount(ingredientListItem: IngredientListItem): void {
-    ingredientListItem.amount--;
-  }
-
   onRemoveItemFromIngredientList(ingredientListItem: IngredientListItem): void {
     this.recipeIngredientList.splice(
       this.recipeIngredientList.indexOf(ingredientListItem),
       1
     );
+  }
+
+  showAlertMessage() {
+    this.isShowingMessage = true;
+    setTimeout(() => {
+      this.isShowingMessage = false;
+    }, 3000);
   }
 
   doRecipeIngredientsIncludes(ingredient: Ingredient): boolean {
@@ -130,13 +98,6 @@ export class RecipeManagerComponent implements OnInit {
       }
     }
     return false;
-  }
-
-  showAlertMessage() {
-    this.isShowingMessage = true;
-    setTimeout(() => {
-      this.isShowingMessage = false;
-    }, 3000);
   }
 
   onAddRecipeIngredient(ingredient: Ingredient) {

@@ -34,7 +34,7 @@ export class IngredientsService {
     let isOnList: boolean = false;
     this.ingredientList.find((item: Ingredient) => {
       if (item.name === ingredient.name) {
-        console.log("TRUE");
+        console.log('TRUE');
         isOnList = true;
         return;
       }

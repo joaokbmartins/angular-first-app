@@ -5,6 +5,6 @@ export class IngredientListItem {
   amount: number;
   constructor(ingredient: Ingredient, amount: number) {
     this.ingredient = ingredient;
-    this.amount = amount
+    this.amount = amount;
   }
-} 
+}

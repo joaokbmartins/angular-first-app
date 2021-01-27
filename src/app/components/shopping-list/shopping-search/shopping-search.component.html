@@ -16,42 +16,8 @@
             label="Name"
             id="name"
             placeholder="Search Item"
-            (itemSelected)="onAddSelectedIngredient($event)"
+            (itemSelected)="onAddSelectedProduct($event)"
           ></app-live-search>
-        </div>
-        <!-- <div class="col-sm-2 form-group">
-          <label for="amount">Amount</label>
-          <input
-            type="number"
-            id="amount"
-            class="form-control"
-            value="1"
-            min="1"
-            #inputAmount
-          />
-        </div> -->
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <!-- <button
-            class="btn btn-success"
-            type="submit"
-            (click)="onAddIngredient()"
-          >
-            Add
-          </button> -->
-          &nbsp;
-          <button
-            class="btn btn-danger"
-            type="button"
-            (click)="onDeleteIngredient()"
-          >
-            Delete
-          </button>
-          &nbsp;
-          <button class="btn btn-default" type="button" (click)="onClearList()">
-            Clear
-          </button>
         </div>
       </div>
     </form>

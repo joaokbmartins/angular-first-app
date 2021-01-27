@@ -8,25 +8,7 @@
   border-collapse: collapse;
 }
 
-.span-amount {
-  font-weight: bold;
-}
-
-.th-column-id {
-  width: 7rem;
-}
-
-.th-column-amount {
-  width: 10rem;
-}
-
-.column-amount {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.alert-message{
+.alert-message {
   display: flex;
   justify-content: center;
   padding: 1rem;
@@ -35,4 +17,4 @@
   border-radius: 4px;
   color: rgb(75, 75, 75);
   background-color: rgba(255, 255, 0, 0.185);
-} 
+}
