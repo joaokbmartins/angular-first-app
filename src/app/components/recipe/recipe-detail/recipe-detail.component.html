@@ -20,15 +20,18 @@
         <button class="btn btn-primary dropdown-toggle">
           Manage Recipe <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu" style="margin-top: 0">
           <li>
-            <a style="cursor: pointer" (click)="addToShoppingList()">
+            <a
+              style="cursor: pointer"
+              (click)="addRecipeIngredientsToShoppingList()"
+            >
               To Shopping List
             </a>
           </li>
           <li>
             <a
-              [routerLink]="['recipes', 'manager', recipeToDetail.id]"
+              [routerLink]="['/', 'recipes', 'manager', recipeToDetail.id]"
               style="cursor: pointer"
             >
               Edit Recipe
@@ -51,7 +54,7 @@
           class="list-group-item"
           *ngFor="let item of recipeToDetail.ingredientList"
         >
-          {{ item.ingredient.name }} | {{ item.amount }}
+          {{ item.product.name }} | {{ item.amount }}
         </li>
       </ul>
     </div>

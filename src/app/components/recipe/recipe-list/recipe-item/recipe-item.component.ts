@@ -14,8 +14,6 @@ export class RecipeItemComponent {
   constructor(private recipesService: RecipesService, private router: Router) {}
 
   onShowDetails(): void {
-    this.router.navigate(['recipes',this.recipe.id]);
-    this.recipesService.selectedRecipe.emit(this.recipe);
-    console.log('details');
+    this.router.navigate(['recipes', this.recipe.id]);
   }
 }

@@ -24,7 +24,7 @@ export class ToggleDropDirective {
   //   this.dropStatus = this.elRef.nativeElement.contains(event.target) ? !this.dropStatus : false;
   // }
   
-  @HostListener('mouseenter')
+  @HostListener('click')
   public toggleDropdown(): void {
     this.dropStatus = this.dropStatus ==
       ToggleDropDirective.CLOSED ? ToggleDropDirective.OPPEND : ToggleDropDirective.CLOSED;

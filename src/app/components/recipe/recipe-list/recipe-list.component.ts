@@ -19,6 +19,5 @@ export class RecipeListComponent implements OnInit {
         this.recipeList = recipeListUpdate;
       }
     );
-    // console.log(this.recipes);
   }
 }

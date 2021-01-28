@@ -28,7 +28,7 @@
     </button>
   </div>
 </div>
-<div #liveSearchBody class="live-search-body" *ngIf="foundItems?.length > 0">
+<div *ngIf="foundItems?.length > 0" #liveSearchBody class="live-search-body">
   <div
     *ngFor="let item of foundItems"
     (click)="onClickLiveSearchItem($event)"

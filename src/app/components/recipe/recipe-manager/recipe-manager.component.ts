@@ -1,8 +1,9 @@
-import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
-import { Router, Params, ActivatedRoute } from '@angular/router';
-import { TimeInterval } from 'rxjs';
-import { IngredientListItem } from '../../shopping-list/ingredient/ingredient-list-item.model';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Params, ActivatedRoute } from '@angular/router';
+
+import { BaseProduct } from 'src/app/shared/classes/base-product.model';
 import { Ingredient } from '../../shopping-list/ingredient/ingredient.model';
+import { ShoppingListProduct } from '../../shopping-list/shopping-list-product.interface';
 import { Recipe } from '../recipe.model';
 import { RecipesService } from '../recipes.service';
 
@@ -18,7 +19,7 @@ export class RecipeManagerComponent implements OnInit {
   description: string = 'TEST DESCRIPTION';
   imagePath: string = 'https://ichef.bbci.co.uk/images/ic/832xn/p08nk96t.jpg';
   toUpdateRecipe: Recipe = null;
-  recipeIngredientList: IngredientListItem[] = null;
+  recipeIngredientList: ShoppingListProduct<any>[] = null;
   managerOperation: string = 'Save Recipe';
   timerAmountManagement = null;
   isShowingMessage: boolean = false;
@@ -28,8 +29,8 @@ export class RecipeManagerComponent implements OnInit {
     private activatedRoute: ActivatedRoute // private recipesService: RecipesService
   ) {}
 
-  ngOnInit() {
-    this.recipeIngredientList = <IngredientListItem[]>[];
+  ngOnInit<T extends BaseProduct>() {
+    this.recipeIngredientList = <ShoppingListProduct<T>[]>[];
     if (this.activatedRoute.params['id']) {
       console.log('RECIPES MANAGER');
       this.activatedRoute.params.subscribe((params: Params) => {
@@ -43,7 +44,10 @@ export class RecipeManagerComponent implements OnInit {
     }
   }
 
-  onUpdateItemAmount(ingredientItem: IngredientListItem, amount: number) {
+  onUpdateItemAmount<T extends BaseProduct>(
+    ingredientItem: ShoppingListProduct<T>,
+    amount: number
+  ) {
     if (amount > 0) {
       ingredientItem.amount = amount;
     } else {
@@ -76,7 +80,9 @@ export class RecipeManagerComponent implements OnInit {
 
   onUpdateRecipe(): void {}
 
-  onRemoveItemFromIngredientList(ingredientListItem: IngredientListItem): void {
+  onRemoveItemFromIngredientList<T extends BaseProduct>(
+    ingredientListItem: ShoppingListProduct<T>
+  ): void {
     this.recipeIngredientList.splice(
       this.recipeIngredientList.indexOf(ingredientListItem),
       1
@@ -92,7 +98,7 @@ export class RecipeManagerComponent implements OnInit {
 
   doRecipeIngredientsIncludes(ingredient: Ingredient): boolean {
     for (let item of this.recipeIngredientList) {
-      if (this.equals(item.ingredient, ingredient)) {
+      if (this.equals(item.product.ingredient, ingredient)) {
         this.showAlertMessage();
         return true;
       }
@@ -100,9 +106,18 @@ export class RecipeManagerComponent implements OnInit {
     return false;
   }
 
+  getNextIngredientListItemId(): number {
+    return this.recipeIngredientList[this.recipeIngredientList.length - 1].id++;
+  }
+
   onAddRecipeIngredient(ingredient: Ingredient) {
     if (!this.doRecipeIngredientsIncludes(ingredient)) {
-      this.recipeIngredientList.push({ ingredient: ingredient, amount: 1 });
+      let nextId: number = this.getNextIngredientListItemId();
+      this.recipeIngredientList.push({
+        id: nextId,
+        product: ingredient,
+        amount: 1,
+      });
     }
   }
 

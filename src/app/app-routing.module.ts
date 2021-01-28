@@ -15,20 +15,14 @@ const appRoutes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'recipes/manager',
-    component: RecipeManagerComponent,
-    canActivateChild: [UrlIdGuard],
-    children: [
-      {
-        path: ':id',
-        component: RecipeManagerComponent,
-      },
-    ],
-  },
-  {
     path: 'recipes',
     component: RecipeComponent,
     children: [
+      {
+        path: 'manager/:id',
+        component: RecipeManagerComponent,
+        canActivate: [UrlIdGuard],
+      },
       {
         path: ':id',
         component: RecipeDetailComponent,

@@ -5,9 +5,11 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IngredientListItem } from './ingredient/ingredient-list-item.model';
+import { BaseProduct } from 'src/app/shared/classes/base-product.model';
+import { ShoppingListProduct } from './shopping-list-product.interface';
+// import { IngredientListItem } from './ingredient/ingredient-list-item.model';
 
-import { ShoppingListItem } from './shopping-list-item.model';
+// import { ShoppingListItem } from './shopping-list-item.model';
 import { ShoppingListService } from './shopping-list.service';
 
 @Component({
@@ -18,21 +20,18 @@ import { ShoppingListService } from './shopping-list.service';
     // ShoppingListService
   ],
 })
-export class ShoppingListComponent implements OnInit, AfterViewInit {
-  shoppingList: ShoppingListItem[];
+export class ShoppingListComponent implements OnInit {
+  shoppingList: ShoppingListProduct<any>[];
   @Input() alertMessage: string = null;
 
   constructor(
     private shoppingListService: ShoppingListService // private elRef: ElementRef
   ) {}
 
-  ngOnInit() {
-    // console.log(this.shoppingListService.getShoppingList());
-
+  ngOnInit<T extends BaseProduct>() {
     this.shoppingList = this.shoppingListService.getShoppingList();
     this.shoppingListService.emitShoppingListUpdated.subscribe(
-      (shoppingListUpdated: ShoppingListItem[]) => {
-        // console.log('subscribe: ', shoppingListUpdated);
+      (shoppingListUpdated: ShoppingListProduct<T>[]) => {
         this.shoppingList = shoppingListUpdated;
       }
     );
@@ -45,24 +44,18 @@ export class ShoppingListComponent implements OnInit, AfterViewInit {
     this.shoppingList.splice(itemIndex, 1);
   }
 
-  onUpdateItemAmount(shoppingItem: ShoppingListItem, amount: number) {
+  onUpdateItemAmount<T extends BaseProduct>(
+    shoppingItem: ShoppingListProduct<T>,
+    amount: number
+  ) {
     if (amount > 0) {
       shoppingItem.amount = amount;
     } else {
-      // this.removeItemFromShoppingList(shoppingItem.id);
       this.shoppingListService.removeItemFromShoppingList(shoppingItem);
     }
   }
 
   onClearList() {
     this.shoppingListService.onCleanList();
-  }
-
-  ngAfterContentInit() {
-    // console.log('1: ', this.elRef);
-  }
-
-  ngAfterViewInit() {
-    // console.log('2: ', this.elRef);
   }
 }

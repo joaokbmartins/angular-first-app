@@ -1,47 +1,61 @@
 import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
+import { BaseProduct } from 'src/app/shared/classes/base-product.model';
 
-import { IngredientListItem } from './ingredient/ingredient-list-item.model';
-import { Ingredient } from './ingredient/ingredient.model';
-import { ShoppingListItem } from './shopping-list-item.model';
+import { ShoppingListProduct } from './shopping-list-product.interface';
 
 @Injectable()
 export class ShoppingListService implements OnInit {
   alertMessage: string = null;
-  shoppingList: ShoppingListItem[] = null;
+  shoppingList: ShoppingListProduct<any>[] = null;
   @Output() emitShoppingListUpdated: EventEmitter<
-    ShoppingListItem[]
-  > = new EventEmitter<ShoppingListItem[]>();
+    ShoppingListProduct<any>[]
+  > = new EventEmitter<ShoppingListProduct<any>[]>();
 
   constructor() {
-    this.shoppingList = <ShoppingListItem[]>[];
+    this.shoppingList = <ShoppingListProduct<any>[]>[];
     this.shoppingList.push();
   }
 
   ngOnInit() {}
 
-  getShoppingList(): ShoppingListItem[] {
-    // console.log('getShoppingList: ', this.shoppingList.slice());
+  getShoppingList<T extends BaseProduct>(): ShoppingListProduct<T>[] {
     return this.shoppingList.slice();
   }
 
   emitOnShoppingListUpdated(): void {
     this.emitShoppingListUpdated.emit(this.getShoppingList());
-    // console.log('emitted');
   }
 
-  addIngredientsFromRecipeToShoppingList(
-    ingredientList: IngredientListItem[]
+  addIngredientsFromRecipeToShoppingList<T extends BaseProduct>(
+    ingredientProductList: ShoppingListProduct<T>[]
   ): void {
-    ingredientList.forEach((ingredientListItem) =>
-      this.addProductToShoppingList(ingredientListItem)
+    ingredientProductList.forEach((ingredientProduct) =>
+      this.addProductToShoppingList(ingredientProduct)
     );
   }
 
-  getIdNextShoppingListItem(): number {
-    let lastItem: ShoppingListItem = this.shoppingList[
+  getIdNextShoppingListItem<T extends BaseProduct>(): number {
+    let lastItem: ShoppingListProduct<T> = this.shoppingList[
       this.shoppingList.length - 1
     ];
-    return lastItem ? lastItem.id + 1 : 0;
+    return lastItem ? lastItem.product.id + 1 : 0;
+  }
+
+  equalsProduct<T extends BaseProduct>(
+    product: any,
+    product1: ShoppingListProduct<T>
+  ): boolean {
+    if (
+      product['__proto__'].constructor ===
+      product1.product['__proto__'].constructor
+    ) {
+      for (let prop of Object.getOwnPropertyNames(product)) {
+        if (product[prop] == product1.product[prop]) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   contaisProduct(product: any): boolean {
@@ -50,38 +64,31 @@ export class ShoppingListService implements OnInit {
     });
   }
 
-  equalsProduct(item: any, item1: any): boolean {
-    if (item['__proto__'].constructor === item1['__proto__'].constructor) {
-      for (let prop of Object.getOwnPropertyNames(item)) {
-        if (item[prop] == item1[prop]) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  addProductToShoppingList(product: any) {
+  addProductToShoppingList<T extends BaseProduct>(
+    product: ShoppingListProduct<T>
+  ) {
     if (!this.contaisProduct(product)) {
-      let nextItemIndex: number = this.getIdNextShoppingListItem();
+      product.id = this.getIdNextShoppingListItem();
       this.shoppingList.push({
-        id: nextItemIndex,
-        amount: 1,
-        product: product,
+        id: product.id,
+        amount: product.amount,
+        product: product.product,
       });
     }
     this.emitOnShoppingListUpdated();
   }
 
-  removeItemFromShoppingList(item: ShoppingListItem) {
+  removeItemFromShoppingList<T extends BaseProduct>(
+    item: ShoppingListProduct<T>
+  ) {
     let index: number = this.shoppingList.indexOf(item);
     this.shoppingList.splice(index, 1);
     this.emitOnShoppingListUpdated();
   }
 
-  onCleanList(): void {
+  onCleanList<T extends BaseProduct>(): void {
     if (confirm('Remove all items from list?')) {
-      this.shoppingList = <ShoppingListItem[]>[];
+      this.shoppingList = <ShoppingListProduct<T>[]>[];
       this.emitOnShoppingListUpdated();
     }
   }

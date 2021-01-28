@@ -1,5 +1,4 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { IngredientListItem } from './ingredient-list-item.model';
 import { Ingredient } from './ingredient.model';
 
 @Injectable({
@@ -13,28 +12,22 @@ export class IngredientsService {
   @Output()
   ingredientListUpdated: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
   constructor() {
-    // this.ingredientList.push({ ingredient: new Ingredient(0, 'rice'), amount: 2 });
-    // this.ingredientList.push({ ingredient: new Ingredient(1, 'bean'), amount: 2 });
-    // this.ingredientList.push({ ingredient: new Ingredient(2, 'bread'), amount: 2 });
     this.ingredientList.push(new Ingredient(0, 'rice'));
     this.ingredientList.push(new Ingredient(1, 'bean'));
     this.ingredientList.push(new Ingredient(2, 'bread'));
   }
 
   addIngredient(newIngredient: Ingredient): void {
-    if (this.isIngredientExistent(newIngredient)) {
-      console.log('item presente');
-    } else {
+    if (!this.contains(newIngredient)) {
       newIngredient.id = this.nextIngredientId();
       this.ingredientList.push(newIngredient);
     }
   }
 
-  isIngredientExistent(ingredient: Ingredient): boolean {
+  contains(ingredient: Ingredient): boolean {
     let isOnList: boolean = false;
     this.ingredientList.find((item: Ingredient) => {
       if (item.name === ingredient.name) {
-        console.log('TRUE');
         isOnList = true;
         return;
       }
