@@ -4,9 +4,9 @@
     <hr />
   </div>
 </div>
-<div class="row" *ngIf="id > 0">
-  <div class="col-md-4 col-sm-2">
-    <div class="input-group">
+<div class="row" *ngIf="managerOperation == 'Update Recipe'">
+  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
+    <div class="form-group">
       <label for="id">Recipe Code</label>
       <input
         name="id"
@@ -19,7 +19,6 @@
     </div>
   </div>
 </div>
-<br />
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
     <div class="form-group">
@@ -32,6 +31,10 @@
         [(ngModel)]="name"
       />
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
     <div class="form-group">
       <label for="description">Description</label>
       <input
@@ -42,6 +45,10 @@
         [(ngModel)]="description"
       />
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
     <div class="form-group">
       <label for="imagePath ">Image</label>
       <input
@@ -52,9 +59,13 @@
         [(ngModel)]="imagePath"
       />
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
     <div class="form-group">
       <app-live-search
-        (itemSelected)="onAddRecipeIngredient($event)"
+        (itemSelected)="onAddIngredientToRecipe($event)"
         id="recipeIngredients"
         label="Ingredient List"
         placeholder="Search ingredient"
@@ -83,8 +94,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of recipeIngredientList">
-                <td>{{ item.product.ingredient.id }}</td>
-                <td>{{ item.product.ingredient.name }}</td>
+                <td>{{ item.product.id }}</td>
+                <td>{{ item.product.name }}</td>
                 <td>
                   <app-input-spinner
                     [itemInitialAmount]="item.amount"
@@ -100,7 +111,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6 col-sm-4">
+  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
     <button class="btn btn-success" (click)="onManageRecipe()">
       {{ managerOperation }}
     </button>

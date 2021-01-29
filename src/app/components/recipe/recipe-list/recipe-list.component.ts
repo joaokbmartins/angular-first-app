@@ -5,19 +5,22 @@ import { RecipesService } from '../recipes.service';
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
+  // providers: [RecipesService],
 })
 export class RecipeListComponent implements OnInit {
-  recipeList: Array<Recipe> = new Array<Recipe>();
-  
+  recipeList: Recipe[] = null;
+
   constructor(private recipesService: RecipesService) {}
 
   ngOnInit() {
     this.recipeList = this.recipesService.getRecipes();
     this.recipesService.emitRecipeListUpdate.subscribe(
-      (recipeListUpdate: Array<Recipe>) => {
-        console.log('RECIPE LIST UPDATED - HOME PAGE', recipeListUpdate);
+      (recipeListUpdate: Recipe[]) => {
+        // console.log('RECIPE LIST UPDATED - HOME PAGE', recipeListUpdate);
+        console.log('SUBSCRIBED');
         this.recipeList = recipeListUpdate;
       }
     );
+    console.log('AAAAAAAAAAAAAAAAAAAAA');
   }
 }

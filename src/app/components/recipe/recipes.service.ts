@@ -1,18 +1,14 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 
 import { Recipe } from 'src/app/components/recipe/recipe.model';
-import { BaseProduct } from 'src/app/shared/classes/base-product.model';
 import { Ingredient } from '../shopping-list/ingredient/ingredient.model';
-import { ShoppingListProduct } from '../shopping-list/shopping-list-product.interface';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
   private recipeList: Recipe[] = null;
   @Output() selectedRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
-  @Output() emitRecipeListUpdate: EventEmitter<Recipe[]> = new EventEmitter<
-    Recipe[]
-  >();
+  emitRecipeListUpdate: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>();
 
   constructor(private shoppingListService: ShoppingListService) {
     this.recipeList = <Recipe[]>[];
@@ -51,25 +47,17 @@ export class RecipesService {
     this.onEmitRecipeListUpdated();
   }
 
-  onEmitRecipeListUpdated() {
-    this.emitRecipeListUpdate.emit(this.getRecipes());
-  }
-
-  addToShoppingList<T extends BaseProduct>(
-    ingredientList: ShoppingListProduct<T>[]
-  ): void {
-    // this.shoppingListService.addIngredientsFromRecipeToShoppingList(
-    //   ingredientList
-    // );
-  }
-
   getRecipes(): Recipe[] {
     return this.recipeList.slice();
   }
 
+  onEmitRecipeListUpdated(): void {
+    this.emitRecipeListUpdate.emit(this.getRecipes());
+  }
+
   getRecipeById(id: number): Recipe {
     return this.recipeList.find((recipe: Recipe) => {
-      return recipe.id === id;
+      return recipe.id == id;
     });
   }
 
@@ -95,6 +83,17 @@ export class RecipesService {
       newRecipe.id = this.getNextId();
       this.recipeList.push(newRecipe);
       this.onEmitRecipeListUpdated();
+    }
+  }
+
+  updateRecipe(recipe: Recipe) {
+    let index = this.recipeList.findIndex((item) => {
+      return item.id === recipe.id;
+    });
+    if (index === recipe.id) {
+      this.recipeList[index] = recipe;
+      this.emitRecipeListUpdate.emit(this.recipeList.slice());
+      console.log(this.recipeList);
     }
   }
 }

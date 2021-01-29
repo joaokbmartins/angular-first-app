@@ -11,7 +11,7 @@ import { RecipesService } from '../recipes.service';
   selector: 'app-recipe-manager',
   templateUrl: 'recipe-manager.component.html',
   styleUrls: ['recipe-manager.component.css'],
-  providers: [RecipesService],
+  // providers: [RecipesService],
 })
 export class RecipeManagerComponent implements OnInit {
   id: number = 0;
@@ -19,7 +19,7 @@ export class RecipeManagerComponent implements OnInit {
   description: string = 'TEST DESCRIPTION';
   imagePath: string = 'https://ichef.bbci.co.uk/images/ic/832xn/p08nk96t.jpg';
   toUpdateRecipe: Recipe = null;
-  recipeIngredientList: ShoppingListProduct<any>[] = null;
+  recipeIngredientList: ShoppingListProduct<Ingredient>[] = null;
   managerOperation: string = 'Save Recipe';
   timerAmountManagement = null;
   isShowingMessage: boolean = false;
@@ -31,17 +31,18 @@ export class RecipeManagerComponent implements OnInit {
 
   ngOnInit<T extends BaseProduct>() {
     this.recipeIngredientList = <ShoppingListProduct<T>[]>[];
-    if (this.activatedRoute.params['id']) {
-      console.log('RECIPES MANAGER');
-      this.activatedRoute.params.subscribe((params: Params) => {
-        var toUpdateRecipe = this.recipesService.getRecipeById(params['id']);
-        this.id = toUpdateRecipe.id;
+    this.activatedRoute.params.subscribe((params: Params) => {
+      let recipeIdFromUrl: number = +params['id'];
+      if (recipeIdFromUrl >= 0 && !isNaN(+recipeIdFromUrl)) {
+        var toUpdateRecipe = this.recipesService.getRecipeById(recipeIdFromUrl);
+        this.id = recipeIdFromUrl;
         this.name = toUpdateRecipe.name;
         this.description = toUpdateRecipe.description;
         this.imagePath = toUpdateRecipe.imagePath;
         this.recipeIngredientList = toUpdateRecipe.ingredientList;
-      });
-    }
+        this.managerOperation = 'Update Recipe';
+      }
+    });
   }
 
   onUpdateItemAmount<T extends BaseProduct>(
@@ -58,7 +59,6 @@ export class RecipeManagerComponent implements OnInit {
   onManageRecipe(): void {
     switch (this.managerOperation) {
       case 'Save Recipe':
-        console.log('onManageRecipe >>>>>>');
         this.onSaveRecipe();
         break;
       case 'Update Recipe':
@@ -78,7 +78,16 @@ export class RecipeManagerComponent implements OnInit {
     this.recipesService.saveRecipe(newRecipe);
   }
 
-  onUpdateRecipe(): void {}
+  onUpdateRecipe(): void {
+    let newRecipe: Recipe = new Recipe(
+      this.id,
+      this.name,
+      this.description,
+      this.imagePath,
+      this.recipeIngredientList
+    );
+    this.recipesService.updateRecipe(newRecipe);
+  }
 
   onRemoveItemFromIngredientList<T extends BaseProduct>(
     ingredientListItem: ShoppingListProduct<T>
@@ -98,7 +107,7 @@ export class RecipeManagerComponent implements OnInit {
 
   doRecipeIngredientsIncludes(ingredient: Ingredient): boolean {
     for (let item of this.recipeIngredientList) {
-      if (this.equals(item.product.ingredient, ingredient)) {
+      if (this.equals(item, ingredient)) {
         this.showAlertMessage();
         return true;
       }
@@ -106,11 +115,26 @@ export class RecipeManagerComponent implements OnInit {
     return false;
   }
 
-  getNextIngredientListItemId(): number {
-    return this.recipeIngredientList[this.recipeIngredientList.length - 1].id++;
+  private equals(
+    item: ShoppingListProduct<Ingredient>,
+    item2: Ingredient
+  ): boolean {
+    if (item.product === item2) {
+      return true;
+    }
+    if (item.id === item2.id || item.product.name === item2.name) {
+      return true;
+    }
+    return false;
   }
 
-  onAddRecipeIngredient(ingredient: Ingredient) {
+  getNextIngredientListItemId(): number {
+    let lastIngredinetFromList: ShoppingListProduct<Ingredient> = this
+      .recipeIngredientList[this.recipeIngredientList.length - 1];
+    return lastIngredinetFromList ? lastIngredinetFromList.id : 0;
+  }
+
+  onAddIngredientToRecipe(ingredient: Ingredient) {
     if (!this.doRecipeIngredientsIncludes(ingredient)) {
       let nextId: number = this.getNextIngredientListItemId();
       this.recipeIngredientList.push({
@@ -119,15 +143,5 @@ export class RecipeManagerComponent implements OnInit {
         amount: 1,
       });
     }
-  }
-
-  private equals(item: Ingredient, item2: Ingredient): boolean {
-    if (item === item2) {
-      return true;
-    }
-    if (item.id === item2.id || item.name === item2.name) {
-      return true;
-    }
-    return false;
   }
 }
