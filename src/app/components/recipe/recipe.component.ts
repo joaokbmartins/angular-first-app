@@ -1,5 +1,5 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from './recipe.model';
 import { RecipesService } from './recipes.service';
 
@@ -10,11 +10,17 @@ import { RecipesService } from './recipes.service';
 export class RecipeComponent implements OnInit {
   selectedRecipe: Recipe = null;
 
-  constructor(private recipesService: RecipesService, private router: Router) {}
+  constructor(
+    private recipesService: RecipesService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {}
 
   onManageRecipe(): void {
-    this.router.navigate(['/', 'recipes', 'manager']);
+    this.router.navigate(['manager'], {
+      relativeTo: this.activatedRoute,
+    });
   }
 }

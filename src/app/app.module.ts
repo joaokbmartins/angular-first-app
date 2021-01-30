@@ -11,15 +11,16 @@ import { HeaderComponent } from './components/header/header.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { RecipeListComponent } from './components/recipe/recipe-list/recipe-list.component';
 import { RecipeDetailComponent } from './components/recipe/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item/recipe-item.component'; 
+import { RecipeItemComponent } from './components/recipe/recipe-list/recipe-item/recipe-item.component';
 import { ToggleDropDirective } from './shared/directives/toggle-drop.directive';
 import { ShoppingListService } from './components/shopping-list/shopping-list.service';
 import { WarningPageComponent } from './shared/components/warning-page/warning-page.component';
 import { RecipeManagerComponent } from './components/recipe/recipe-manager/recipe-manager.component';
 import { UrlIdGuard } from './shared/services/url-id-guard.service';
-import { LiveSearchComponent } from './shared/components/live-search/live-search.component'; 
+import { LiveSearchComponent } from './shared/components/live-search/live-search.component';
 import { InputSpinner } from './shared/components/input-spinner/input-spinner.component';
 import { ShoppingSearchComponent } from './components/shopping-list/shopping-search/shopping-search.component';
+import { RecipeBlankComponent } from './components/recipe/recipe-blank/recipe-blank.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ShoppingSearchComponent } from './components/shopping-list/shopping-sea
     RecipeManagerComponent,
     LiveSearchComponent,
     InputSpinner,
+    RecipeBlankComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [ShoppingListService, UrlIdGuard],

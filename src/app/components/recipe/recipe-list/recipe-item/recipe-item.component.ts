@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Recipe } from '../../recipe.model';
-import { RecipesService } from '../../recipes.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -11,9 +10,9 @@ import { RecipesService } from '../../recipes.service';
 export class RecipeItemComponent {
   @Input() recipe: Recipe = null;
 
-  constructor(private recipesService: RecipesService, private router: Router) {}
+  // constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
-  onShowDetails(): void {
-    this.router.navigate(['recipes', this.recipe.id]);
-  }
+  // onShowDetails(): void {
+  //   this.router.navigate([this.recipe.id], { relativeTo: this.activatedRoute });
+  // }
 }
