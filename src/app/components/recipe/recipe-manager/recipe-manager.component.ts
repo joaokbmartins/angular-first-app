@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 
 import { BaseProduct } from 'src/app/shared/classes/base-product.model';
 import { Ingredient } from '../../shopping-list/ingredient/ingredient.model';
@@ -11,7 +11,6 @@ import { RecipesService } from '../recipes.service';
   selector: 'app-recipe-manager',
   templateUrl: 'recipe-manager.component.html',
   styleUrls: ['recipe-manager.component.css'],
-  // providers: [RecipesService],
 })
 export class RecipeManagerComponent implements OnInit {
   id: number = 0;
@@ -26,7 +25,8 @@ export class RecipeManagerComponent implements OnInit {
 
   constructor(
     private recipesService: RecipesService,
-    private activatedRoute: ActivatedRoute // private recipesService: RecipesService
+    private activatedRoute: ActivatedRoute, // private recipesService: RecipesService
+    private router: Router
   ) {}
 
   ngOnInit<T extends BaseProduct>() {
@@ -75,7 +75,10 @@ export class RecipeManagerComponent implements OnInit {
       this.imagePath,
       this.recipeIngredientList
     );
-    this.recipesService.saveRecipe(newRecipe);
+    let operationResult: boolean = this.recipesService.saveRecipe(newRecipe);
+    if (operationResult) {
+      this.returnToRecipeDetail();
+    }
   }
 
   onUpdateRecipe(): void {
@@ -86,7 +89,16 @@ export class RecipeManagerComponent implements OnInit {
       this.imagePath,
       this.recipeIngredientList
     );
-    this.recipesService.updateRecipe(newRecipe);
+    let operationResult: boolean = this.recipesService.updateRecipe(newRecipe);
+    if (operationResult) {
+      this.returnToRecipeDetail();
+    }
+  }
+
+  returnToRecipeDetail(): void {
+    setTimeout(() => {
+      this.router.navigate(['/', 'recipes', this.id]);
+    }, 2000);
   }
 
   onRemoveItemFromIngredientList<T extends BaseProduct>(

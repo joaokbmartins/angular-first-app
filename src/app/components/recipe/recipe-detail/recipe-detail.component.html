@@ -49,14 +49,20 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <ul class="list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let item of recipeToDetail.ingredientList"
-        >
-          {{ item.product.name }} | {{ item.amount }}
-        </li>
-      </ul>
+      <table class="table table-border table-striped table-hover">
+        <thead>
+          <tr>
+            <th style="width: 80%">Ingredient</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of recipeToDetail.ingredientList">
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.amount }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

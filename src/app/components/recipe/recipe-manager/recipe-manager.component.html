@@ -1,119 +1,126 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2>Recipe Manager</h2>
-    <hr />
-  </div>
-</div>
-<div class="row" *ngIf="managerOperation == 'Update Recipe'">
-  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
-    <div class="form-group">
-      <label for="id">Recipe Code</label>
-      <input
-        name="id"
-        type="text"
-        class="form-control"
-        id="id"
-        disabled="true"
-        [(ngModel)]="id"
-      />
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input
-        name="recipeName"
-        type="text"
-        class="form-control"
-        id="name"
-        [(ngModel)]="name"
-      />
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
-    <div class="form-group">
-      <label for="description">Description</label>
-      <input
-        name="recipeDescription"
-        type="text"
-        class="form-control"
-        id="description"
-        [(ngModel)]="description"
-      />
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
-    <div class="form-group">
-      <label for="imagePath ">Image</label>
-      <input
-        name="imagePath"
-        type="text"
-        class="form-control"
-        id="imagePath "
-        [(ngModel)]="imagePath"
-      />
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
-    <div class="form-group">
-      <app-live-search
-        (itemSelected)="onAddIngredientToRecipe($event)"
-        id="recipeIngredients"
-        label="Ingredient List"
-        placeholder="Search ingredient"
-      ></app-live-search>
-      <div
-        class="alert-message ingredient-list"
-        *ngIf="!recipeIngredientList.length"
-      >
-        <span>Add ingredients to this recipe</span>
+<div class="container">
+  <div
+    class="recipe-manager-form"
+    style="max-width: 50%; justify-content: flex-start; padding: 0 3rem"
+  >
+    <div class="row">
+      <div class="col-md">
+        <h2>Recipe Manager</h2>
+        <hr />
       </div>
-      <div class="alert-message" *ngIf="isShowingMessage">
-        <span>Ingredient is already on list</span>
-      </div>
-      <div class="ingredient-list" *ngIf="recipeIngredientList.length">
-        <div class="recipe-ingredients-table">
-          <table
-            class="table table-hover table-striped table-bordered"
-            style="margin-bottom: 0"
-          >
-            <thead>
-              <tr>
-                <th class="th-column-id">Id</th>
-                <th>Name</th>
-                <th class="th-column-amount">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of recipeIngredientList">
-                <td>{{ item.product.id }}</td>
-                <td>{{ item.product.name }}</td>
-                <td>
-                  <app-input-spinner
-                    [itemInitialAmount]="item.amount"
-                    (amountUpdated)="onUpdateItemAmount(item, $event)"
-                  ></app-input-spinner>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    </div>
+    <div class="row" *ngIf="managerOperation == 'Update Recipe'">
+      <div class="col-md">
+        <div class="form-group">
+          <label for="id">Recipe Code</label>
+          <input
+            name="id"
+            type="text"
+            class="form-control"
+            id="id"
+            disabled="true"
+            [(ngModel)]="id"
+          />
         </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
-    <button class="btn btn-success" (click)="onManageRecipe()">
-      {{ managerOperation }}
-    </button>
+    <div class="row">
+      <div class="col-md">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            name="recipeName"
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="name"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md">
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            name="recipeDescription"
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="description"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md">
+        <div class="form-group">
+          <label for="imagePath ">Image</label>
+          <input
+            name="imagePath"
+            type="text"
+            class="form-control"
+            id="imagePath "
+            [(ngModel)]="imagePath"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md">
+        <div class="form-group">
+          <app-live-search
+            (itemSelected)="onAddIngredientToRecipe($event)"
+            id="recipeIngredients"
+            label="Ingredient List"
+            placeholder="Search ingredient"
+          ></app-live-search>
+          <div
+            class="alert-message ingredient-list"
+            *ngIf="!recipeIngredientList.length"
+          >
+            <span>Add ingredients to this recipe</span>
+          </div>
+          <div class="alert-message" *ngIf="isShowingMessage">
+            <span>Ingredient is already on list</span>
+          </div>
+          <div class="ingredient-list" *ngIf="recipeIngredientList.length">
+            <div class="recipe-ingredients-table">
+              <table
+                class="table table-hover table-striped table-bordered"
+                style="margin-bottom: 0"
+              >
+                <thead>
+                  <tr>
+                    <th class="th-column-id">Id</th>
+                    <th>Name</th>
+                    <th class="th-column-amount">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of recipeIngredientList">
+                    <td>{{ item.product.id }}</td>
+                    <td>{{ item.product.name }}</td>
+                    <td>
+                      <app-input-spinner
+                        [itemInitialAmount]="item.amount"
+                        (amountUpdated)="onUpdateItemAmount(item, $event)"
+                      ></app-input-spinner>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md">
+        <button class="btn btn-success" (click)="onManageRecipe()">
+          {{ managerOperation }}
+        </button>
+      </div>
+    </div>
   </div>
 </div>

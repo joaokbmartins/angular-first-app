@@ -1,4 +1,6 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 import { Recipe } from 'src/app/components/recipe/recipe.model';
 import { Ingredient } from '../shopping-list/ingredient/ingredient.model';
@@ -6,12 +8,16 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
-  private recipeList: Recipe[] = null;
-  @Output() selectedRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+  private recipeList: Recipe[] = <Recipe[]>[];
+  selectesdRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
   emitRecipeListUpdate: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>();
 
+  private eventNextReplaySubject: ReplaySubject<Recipe[]> = new ReplaySubject<
+    Recipe[]
+  >();
+  subscriberNewReplaySubject = this.eventNextReplaySubject.asObservable();
+
   constructor(private shoppingListService: ShoppingListService) {
-    this.recipeList = <Recipe[]>[];
     this.recipeList.push(
       new Recipe(
         0,
@@ -44,15 +50,14 @@ export class RecipesService {
         ]
       )
     );
-    this.onEmitRecipeListUpdated();
   }
 
-  getRecipes(): Recipe[] {
+  getRecipeList(): Recipe[] {
     return this.recipeList.slice();
   }
 
   onEmitRecipeListUpdated(): void {
-    this.emitRecipeListUpdate.emit(this.getRecipes());
+    this.eventNextReplaySubject.next(this.getRecipeList());
   }
 
   getRecipeById(id: number): Recipe {
@@ -63,7 +68,7 @@ export class RecipesService {
 
   getNextId(): number {
     if (this.recipeList.length > 0) {
-      return ++this.recipeList[this.recipeList.length - 1].id;
+      return this.recipeList[this.recipeList.length - 1].id + 1;
     }
     return 0;
   }
@@ -78,22 +83,25 @@ export class RecipesService {
     return recipeFoundOnList;
   }
 
-  saveRecipe(newRecipe: Recipe): void {
+  saveRecipe(newRecipe: Recipe): boolean {
     if (!this.isRecipeOnList(newRecipe)) {
       newRecipe.id = this.getNextId();
       this.recipeList.push(newRecipe);
       this.onEmitRecipeListUpdated();
+      return true;
     }
+    return false;
   }
 
-  updateRecipe(recipe: Recipe) {
+  updateRecipe(recipe: Recipe): boolean {
     let index = this.recipeList.findIndex((item) => {
       return item.id === recipe.id;
     });
     if (index === recipe.id) {
       this.recipeList[index] = recipe;
-      this.emitRecipeListUpdate.emit(this.recipeList.slice());
-      console.log(this.recipeList);
+      this.onEmitRecipeListUpdated();
+      return true;
     }
+    return false;
   }
 }

@@ -12,9 +12,11 @@ export class IngredientsService {
   @Output()
   ingredientListUpdated: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
   constructor() {
-    this.ingredientList.push(new Ingredient(0, 'rice'));
-    this.ingredientList.push(new Ingredient(1, 'bean'));
-    this.ingredientList.push(new Ingredient(2, 'bread'));
+    this.ingredientList.push(
+      new Ingredient(0, 'rice'),
+      new Ingredient(1, 'bean'),
+      new Ingredient(2, 'bread')
+    );
   }
 
   addIngredient(newIngredient: Ingredient): void {
