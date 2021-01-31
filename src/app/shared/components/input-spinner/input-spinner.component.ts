@@ -5,17 +5,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './input-spinner.component.html',
   styleUrls: ['./input-spinner.component.css'],
 })
-export class InputSpinner implements OnInit {
-  @Output("amountUpdated")
+export class InputSpinner {
+  @Output('amountUpdated')
   emitAmountUpdated: EventEmitter<number> = new EventEmitter<number>();
-
   @Input() itemInitialAmount: number = 0;
-
   timerAmountManagement = null;
 
   constructor() {}
-
-  ngOnInit() {}
 
   onBtnIncrease(event: Event): void {
     if (event['button'] === 0) {

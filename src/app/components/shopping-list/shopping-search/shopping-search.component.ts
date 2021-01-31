@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseProduct } from 'src/app/shared/classes/base-product.model';
 
 import { ShoppingListProduct } from '../shopping-list-product.interface';
@@ -13,10 +13,7 @@ export class ShoppingSearchComponent {
 
   ingredientSelected: ShoppingListProduct<any> = null;
 
-  constructor(
-    private shoppingListService: ShoppingListService,
-    private renderer: Renderer2
-  ) {}
+  constructor(private shoppingListService: ShoppingListService) {}
 
   public onClearList(): void {
     this.shoppingListService.onCleanList();

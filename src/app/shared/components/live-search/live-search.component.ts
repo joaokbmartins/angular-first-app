@@ -1,4 +1,13 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  Output,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
+import { Subject } from 'rxjs';
+
 import { RecipesService } from 'src/app/components/recipe/recipes.service';
 import { Ingredient } from 'src/app/components/shopping-list/ingredient/ingredient.model';
 import { IngredientsService } from 'src/app/components/shopping-list/ingredient/ingredients.service';
@@ -6,17 +15,17 @@ import { IngredientsService } from 'src/app/components/shopping-list/ingredient/
 @Component({
   selector: 'app-live-search',
   templateUrl: './live-search.component.html',
-  styleUrls: ['./live-search.component.css']
+  styleUrls: ['./live-search.component.css'],
 })
 export class LiveSearchComponent {
-
   @Input() id: number;
   @Input() label: string;
   @Input() placeholder: string;
   @Input() haveInitialAmount: boolean = false;
-  @Output("itemSelected") emitLiveSearchItemSelected: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
-  @ViewChild("liveSearchInput") liveSearchInput: ElementRef<HTMLInputElement>;
-  @ViewChild("liveSearchBody") liveSearchBody: ElementRef<HTMLDivElement>;
+  @Output('itemSelected')
+  emitLiveSearchItemSelected: Subject<Ingredient> = new Subject<Ingredient>();
+  @ViewChild('liveSearchInput') liveSearchInput: ElementRef<HTMLInputElement>;
+  @ViewChild('liveSearchBody') liveSearchBody: ElementRef<HTMLDivElement>;
 
   foundItems: Ingredient[] = null;
   selectedItem: Ingredient = null;
@@ -24,11 +33,10 @@ export class LiveSearchComponent {
   constructor(
     private ingredientsService: IngredientsService,
     private recipesService: RecipesService
-  ) { 
-    this.label = "Search";
-    this.placeholder = "Search item";
+  ) {
+    this.label = 'Search';
+    this.placeholder = 'Search item';
   }
-
 
   onSearchItem(event: KeyboardEvent) {
     let searchValue: string = this.liveSearchInput.nativeElement.value;
@@ -36,7 +44,9 @@ export class LiveSearchComponent {
       this.unsetFoundItems();
       return;
     }
-    this.foundItems = this.ingredientsService.findIngredientByName(searchValue.trim().toLowerCase());
+    this.foundItems = this.ingredientsService.findIngredientByName(
+      searchValue.trim().toLowerCase()
+    );
   }
 
   isItemOnList(ingredientId: number): boolean {
@@ -45,7 +55,7 @@ export class LiveSearchComponent {
       if (item.id == ingredientId) {
         itemIsPreset = true;
       }
-    })
+    });
     return itemIsPreset;
   }
 
@@ -57,7 +67,7 @@ export class LiveSearchComponent {
 
   onSelectIngredient() {
     if (this.selectedItem) {
-      this.emitLiveSearchItemSelected.emit(this.selectedItem);
+      this.emitLiveSearchItemSelected.next(this.selectedItem);
       this.removeSelection();
     }
   }
@@ -69,6 +79,4 @@ export class LiveSearchComponent {
   unsetFoundItems() {
     this.foundItems = null;
   }
-
-
 }

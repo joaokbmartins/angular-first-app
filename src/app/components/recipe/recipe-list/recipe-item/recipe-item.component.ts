@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import { Recipe } from '../../recipe.model';
 
@@ -9,10 +8,4 @@ import { Recipe } from '../../recipe.model';
 })
 export class RecipeItemComponent {
   @Input() recipe: Recipe = null;
-
-  // constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
-
-  // onShowDetails(): void {
-  //   this.router.navigate([this.recipe.id], { relativeTo: this.activatedRoute });
-  // }
 }

@@ -1,23 +1,18 @@
-import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 
 import { Recipe } from 'src/app/components/recipe/recipe.model';
 import { Ingredient } from '../shopping-list/ingredient/ingredient.model';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
   private recipeList: Recipe[] = <Recipe[]>[];
-  selectesdRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
-  emitRecipeListUpdate: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>();
-
   private eventNextReplaySubject: ReplaySubject<Recipe[]> = new ReplaySubject<
     Recipe[]
   >();
   subscriberNewReplaySubject = this.eventNextReplaySubject.asObservable();
 
-  constructor(private shoppingListService: ShoppingListService) {
+  constructor() {
     this.recipeList.push(
       new Recipe(
         0,

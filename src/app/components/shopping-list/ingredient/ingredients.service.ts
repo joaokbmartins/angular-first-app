@@ -1,16 +1,17 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+
 import { Ingredient } from './ingredient.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IngredientsService {
-  // private ingredientList: IngredientListItem[] = <IngredientListItem[]>[];
   private ingredientList: Ingredient[] = <Ingredient[]>[];
   selectedIngredient: Ingredient = null;
 
   @Output()
-  ingredientListUpdated: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
+  ingredientListUpdated: Subject<Ingredient> = new Subject<Ingredient>();
   constructor() {
     this.ingredientList.push(
       new Ingredient(0, 'rice'),

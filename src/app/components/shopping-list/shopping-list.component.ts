@@ -1,32 +1,18 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BaseProduct } from 'src/app/shared/classes/base-product.model';
 import { ShoppingListProduct } from './shopping-list-product.interface';
-// import { IngredientListItem } from './ingredient/ingredient-list-item.model';
-
-// import { ShoppingListItem } from './shopping-list-item.model';
 import { ShoppingListService } from './shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css'],
-  providers: [
-    // ShoppingListService
-  ],
 })
 export class ShoppingListComponent implements OnInit {
   shoppingList: ShoppingListProduct<any>[];
   @Input() alertMessage: string = null;
 
-  constructor(
-    private shoppingListService: ShoppingListService // private elRef: ElementRef
-  ) {}
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit<T extends BaseProduct>() {
     this.shoppingList = this.shoppingListService.getShoppingList();

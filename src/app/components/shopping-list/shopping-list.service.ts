@@ -1,15 +1,16 @@
-import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
-import { BaseProduct } from 'src/app/shared/classes/base-product.model';
+import { Injectable, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
 
+import { BaseProduct } from 'src/app/shared/classes/base-product.model';
 import { ShoppingListProduct } from './shopping-list-product.interface';
 
 @Injectable()
 export class ShoppingListService implements OnInit {
   alertMessage: string = null;
   shoppingList: ShoppingListProduct<any>[] = null;
-  @Output() emitShoppingListUpdated: EventEmitter<
+  @Output() emitShoppingListUpdated: Subject<
     ShoppingListProduct<any>[]
-  > = new EventEmitter<ShoppingListProduct<any>[]>();
+  > = new Subject<ShoppingListProduct<any>[]>();
 
   constructor() {
     this.shoppingList = <ShoppingListProduct<any>[]>[];
@@ -23,7 +24,7 @@ export class ShoppingListService implements OnInit {
   }
 
   emitOnShoppingListUpdated(): void {
-    this.emitShoppingListUpdated.emit(this.getShoppingList());
+    this.emitShoppingListUpdated.next(this.getShoppingList());
   }
 
   addIngredientsFromRecipeToShoppingList<T extends BaseProduct>(

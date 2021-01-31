@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ShoppingListService } from '../../shopping-list/shopping-list.service';
 
+import { ShoppingListService } from '../../shopping-list/shopping-list.service';
 import { Recipe } from '../recipe.model';
 import { RecipesService } from '../recipes.service';
 
@@ -33,7 +33,6 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   addRecipeIngredientsToShoppingList(): void {
-    console.log(this.recipeToDetail);
     this.shoppingListService.addIngredientsFromRecipeToShoppingList(
       this.recipeToDetail.ingredientList
     );
