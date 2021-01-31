@@ -1,13 +1,11 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   Output,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
-import { Subject } from 'rxjs';
-
 import { RecipesService } from 'src/app/components/recipe/recipes.service';
 import { Ingredient } from 'src/app/components/shopping-list/ingredient/ingredient.model';
 import { IngredientsService } from 'src/app/components/shopping-list/ingredient/ingredients.service';
@@ -23,17 +21,14 @@ export class LiveSearchComponent {
   @Input() placeholder: string;
   @Input() haveInitialAmount: boolean = false;
   @Output('itemSelected')
-  emitLiveSearchItemSelected: Subject<Ingredient> = new Subject<Ingredient>();
+  emitLiveSearchItemSelected: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
   @ViewChild('liveSearchInput') liveSearchInput: ElementRef<HTMLInputElement>;
   @ViewChild('liveSearchBody') liveSearchBody: ElementRef<HTMLDivElement>;
 
   foundItems: Ingredient[] = null;
   selectedItem: Ingredient = null;
 
-  constructor(
-    private ingredientsService: IngredientsService,
-    private recipesService: RecipesService
-  ) {
+  constructor(private ingredientsService: IngredientsService) {
     this.label = 'Search';
     this.placeholder = 'Search item';
   }
@@ -67,7 +62,7 @@ export class LiveSearchComponent {
 
   onSelectIngredient() {
     if (this.selectedItem) {
-      this.emitLiveSearchItemSelected.next(this.selectedItem);
+      this.emitLiveSearchItemSelected.emit(this.selectedItem);
       this.removeSelection();
     }
   }

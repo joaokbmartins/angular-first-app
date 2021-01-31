@@ -11,7 +11,6 @@ import { RecipesService } from '../recipes.service';
 })
 export class RecipeDetailComponent implements OnInit {
   collapsed: boolean = true;
-
   recipeToDetail: Recipe = null;
 
   constructor(

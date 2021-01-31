@@ -8,9 +8,10 @@ import { ShoppingListProduct } from './shopping-list-product.interface';
 export class ShoppingListService implements OnInit {
   alertMessage: string = null;
   shoppingList: ShoppingListProduct<any>[] = null;
-  @Output() emitShoppingListUpdated: Subject<
+
+  emitShoppingListUpdated: Subject<ShoppingListProduct<any>[]> = new Subject<
     ShoppingListProduct<any>[]
-  > = new Subject<ShoppingListProduct<any>[]>();
+  >();
 
   constructor() {
     this.shoppingList = <ShoppingListProduct<any>[]>[];

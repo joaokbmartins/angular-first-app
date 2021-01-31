@@ -10,7 +10,6 @@ export class IngredientsService {
   private ingredientList: Ingredient[] = <Ingredient[]>[];
   selectedIngredient: Ingredient = null;
 
-  @Output()
   ingredientListUpdated: Subject<Ingredient> = new Subject<Ingredient>();
   constructor() {
     this.ingredientList.push(

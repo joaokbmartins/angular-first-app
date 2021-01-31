@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { BaseProduct } from 'src/app/shared/classes/base-product.model';
 import { ShoppingListProduct } from './shopping-list-product.interface';
 import { ShoppingListService } from './shopping-list.service';
@@ -8,19 +10,24 @@ import { ShoppingListService } from './shopping-list.service';
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css'],
 })
-export class ShoppingListComponent implements OnInit {
+export class ShoppingListComponent implements OnInit, OnDestroy {
   shoppingList: ShoppingListProduct<any>[];
   @Input() alertMessage: string = null;
+  private subscription: Subscription;
 
   constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit<T extends BaseProduct>() {
     this.shoppingList = this.shoppingListService.getShoppingList();
-    this.shoppingListService.emitShoppingListUpdated.subscribe(
+    this.subscription = this.shoppingListService.emitShoppingListUpdated.subscribe(
       (shoppingListUpdated: ShoppingListProduct<T>[]) => {
         this.shoppingList = shoppingListUpdated;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   removeItemFromShoppingList(idShoppingListItem: number) {

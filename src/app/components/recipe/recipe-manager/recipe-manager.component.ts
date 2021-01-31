@@ -25,7 +25,7 @@ export class RecipeManagerComponent implements OnInit {
 
   constructor(
     private recipesService: RecipesService,
-    private activatedRoute: ActivatedRoute, // private recipesService: RecipesService
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
 

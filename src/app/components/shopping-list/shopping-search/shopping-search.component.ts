@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { BaseProduct } from 'src/app/shared/classes/base-product.model';
 
 import { ShoppingListProduct } from '../shopping-list-product.interface';
@@ -10,7 +10,6 @@ import { ShoppingListService } from '../shopping-list.service';
 })
 export class ShoppingSearchComponent {
   alertMessage: string = null;
-
   ingredientSelected: ShoppingListProduct<any> = null;
 
   constructor(private shoppingListService: ShoppingListService) {}
